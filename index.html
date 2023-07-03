@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>jkpth.online</title>
+    <link rel="icon" href="jlogo.png">
+    <link ?something=something rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <p id="top2" onclick="quotePlace()">+</p>
+    <p id="top"></p>
+    <h1 data-value="jkpth.online">jkpth.online</h1>
+    
+    <div class="tab">
+      <button class="tablinks nav-button" onclick="openSection(event, 'who-section')">who</button>
+      <button class="tablinks nav-button" onclick="openSection(event, 'what-section')">what</button>
+      <button class="tablinks nav-button" onclick="openSection(event, 'why-section')">why</button>
+    </div>
+
+    <div id="who-section" class="tabcontent">
+      <h2>jacob thompson 📍 columbia, mo</h2>
+      <p>university of missouri cs student</p>
+      <p>c html python java</p>
+      <p>committed to staying current with the latest <br> developments in the field</p>
+      <h3>get in touch</h3>
+      <form method="post" action="https://formsubmit.co/18924ccb284f0b8ef14ce41965cd756e">
+        <input type="text" id="name" name="name" placeholder="your name"><br>
+        <input type="email" id="email" name="email" required placeholder="your email"><br>
+        <textarea id="message" name="message" required placeholder="message"></textarea><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div id="what-section" class="tabcontent">
+      <h2>things i'm working on</h2>
+      <img src="image1.jpg" style="width: 500px; height: 300px;">
+      <h3>mizzou ai hackathon - using ai for social good</h3>
+      <p>openai powered applicant tracking system<br>- 3rd place winner <br>- built with python</p>
+      <img src="image1.jpg" style="width: 500px; height: 300px;">
+      <h3>cosmic miner</h3>
+      <p>idle miner web game using javascript <br>- original artwork from midjourney <br>- work in progress</p>
+      <img src="image1.jpg" style="width: 500px; height: 300px;">
+      <h3>personalized ai image generator</h3>
+      <p>powered using OpenAi's DALL-E API <br>- prompt template functionality <br>- image variation functionality</p>
+      <img src="image2.jpg" style="width: 500px; height: 270px;">
+      <h3>multiplayer rock paper scissors game</h3>
+      <p>powered using node.js and websockets <br>- singleplayer versus ai <br>- multiplayer in development</p>
+    </div>
+
+    <div id="why-section" class="tabcontent">
+      <p>idk</p>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

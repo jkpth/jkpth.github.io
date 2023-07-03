@@ -1,0 +1,198 @@
+html,body {
+    width: 100%;
+    height: 250%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #0A2647;
+    color: #2C74B3;
+    
+    
+  }
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* apply the typing animation to the h1 element */
+  h1 {
+    cursor: default;
+    margin-top: 5rem;
+    position: absolute;
+    left: 51%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-family: 'Roboto Mono', monospace;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 1.6s ease-out forwards;
+    padding-left: 0px;
+}
+h2{
+  cursor: default;
+  text-align: left;
+  padding-left: 30px;}
+
+h3 {
+  cursor: default;
+  text-align: center;
+  padding-top: 100px;}
+  
+
+  @keyframes typing {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 50%;
+    }}
+
+  @keyframes blink {
+    from,
+    to {
+      color: transparent;
+    }
+    50% {
+      color: #2C74B3;
+    }}
+
+  h1::after {
+    content: "|";
+    animation: blink 1.2s infinite;}
+
+
+  
+
+  
+  #who-section{
+    font-family: 'Roboto Mono', monospace;    z-index: 0;
+    padding-top: 5px;
+    width: 600px;
+    height: 700px;
+    margin: 0 auto; /* center the section horizontally */
+    overflow: auto;
+    background-color:#5090c9;
+    margin-top: 35px;
+    color:#063864;
+  }
+  #what-section{
+    font-family: 'Roboto Mono', monospace;
+    z-index: 0;
+    padding-top: 5px;
+    width: 600px;
+    height: 700px;
+    margin: 0 auto; /* center the section horizontally */
+    overflow: auto;
+    background-color:#5090c9;
+    margin-top: 35px;
+    color:#063864;
+  }
+  #why-section {
+    font-family: 'Roboto Mono', monospace;
+    z-index: 0;
+    padding-top: 5px;
+    width: 600px;
+    height: 700px;
+    margin: 0 auto; /* center the section horizontally */
+    overflow: auto;
+    background-color:#5090c9;
+    margin-top: 35px;
+    color:#063864;
+  }
+
+  #who-section p, #what-section p{
+    cursor: default;
+    padding-left: 49px;}
+
+  #what-section p{
+    cursor: default;
+    padding-bottom: 40px;}
+
+  #what-section h3 {
+    cursor: default;
+    text-align: left;
+    padding-left: 30px;
+    padding-top: 0px;}
+    
+  #what-section img {
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-top: 15px;}
+
+  #what-section {
+    height: 1500px;}
+  
+  #why-section p{
+    cursor: default;
+    text-align: center;
+    margin-top: 30%;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;}
+
+  input::placeholder {
+    font-family: 'Roboto Mono', monospace;}
+
+  label,input,textarea {
+    margin-bottom: 10px;}
+  textarea {
+    height: 100px;
+    width: 350px;
+  }
+  input, textarea {
+    background-color:#96c1e6;
+    border: 1px solid #5090c9;
+    color:#2366a1;
+  }
+
+/* Style the tab */
+.tab {
+  display: flex;
+  justify-content: center;
+  margin-top: 13rem;
+}
+
+#top2{
+  cursor: pointer;
+  text-align: center;
+}
+
+#top{
+  font-family: 'Roboto Mono', monospace;
+  text-align: center;
+  cursor: default;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 5px 30px;
+  transition: 0.3s;
+  font-size: 17px;
+  font-family: 'Roboto Mono', monospace;
+  color: #2C74B3;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #063864;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #2C74B3;
+  color: aliceblue;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  
+}
+
+
