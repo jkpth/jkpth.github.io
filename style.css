@@ -78,11 +78,10 @@ h3 {
     font-family: 'Roboto Mono', monospace;
     z-index: 0;
     padding-top: 5px;
-    width: 600px;
+    width: 1200px;
     height: 700px;
     margin: 0 auto; /* center the section horizontally */
-    overflow: auto;
-    background-color:#5090c9;
+    overflow: visible;
     margin-top: 35px;
     color:#063864;
   }
@@ -203,7 +202,7 @@ h3 {
 }
 
 :root {
-  --card-height: 65vh;
+  --card-height: 45vh;
   --card-width: calc(var(--card-height) / 1.5);
 }
 
@@ -214,7 +213,6 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-top: 2rem;
   padding-bottom: 2rem;
   box-sizing: border-box;
 }
@@ -231,10 +229,21 @@ body {
   align-items: center;
   text-align: center;
   display: flex;
-  font-size: 1.5em;
+  font-size: 1em;
   color: rgba(127, 212, 252, 0.177);
   cursor: pointer;
-  font-family: cursive;
+  font-family: sans-serif;
+}
+.card h4{
+  color: #5ddcff;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  align-self: first baseline;
+  justify-content: center;
+  
 }
 
 .card:hover {
