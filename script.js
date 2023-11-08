@@ -34,14 +34,18 @@ function openSection(evt, sectionName) {
   tablinks = document.getElementsByClassName("tablinks");
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }if(sectionName == "frames-section"){
-    document.getElementById(sectionName).style.display = "flex";
-    evt.currentTarget.className += " active";
-    startscroll();
-
-  }else{
+  }
+  
   document.getElementById(sectionName).style.display = "block";
-  evt.currentTarget.className += " active";
+  if (evt) { // Only try to add 'active' class if event exists
+    evt.currentTarget.className += " active";
+  } else {
+    // Find the button corresponding to the sectionName and add 'active' class
+    for (i = 0; i < tablinks.length; i++) {
+      if (tablinks[i].getAttribute('onclick').includes(sectionName)) {
+        tablinks[i].className += " active";
+      }
+    }
   }
 }
 
@@ -65,5 +69,7 @@ function quotePlace() {
 }
 
 
+// Call openSection to display the 'who-section' tab content when the page is loaded
+document.addEventListener('DOMContentLoaded', () => openSection(null, 'who-section'));
 
 

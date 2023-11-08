@@ -134,7 +134,7 @@ h3 {
 .tab {
   display: flex;
   justify-content: center;
-  margin-top: 13rem;
+  margin-top: 2rem;
 }
 .embed-container {
   padding-left: 50px;
@@ -212,3 +212,17 @@ a {
   margin-top: 2rem;
 }
 
+.social-icons {
+  text-align: center;
+  margin-top: 75px; /* adjust as needed */
+}
+
+.social-icons a {
+  margin: 0 10px; /* space out the icons */
+  color: #333; /* your preferred icon color */
+  font-size: 24px; /* adjust size as needed */
+}
+
+.social-icons a:hover {
+  color: #0077b5; /* LinkedIn color on hover, or choose your own */
+}
