@@ -131,6 +131,56 @@ document.addEventListener('DOMContentLoaded', () => {
         on('orientationchange', onTouch);
         on('touchmove', onTouch);
     })();
+
+    // Animate container and cards
+    const container = document.querySelector('.container');
+    const cards = document.querySelectorAll('.link-card');
+    
+    setTimeout(() => {
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+        
+        cards.forEach((card, index) => {
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100 * (index + 1));
+        });
+    }, 100);
+
+    // Handle card clicks
+    cards.forEach(card => {
+        if (card.classList.contains('projects-card')) {
+            card.addEventListener('click', () => {
+                const container = document.querySelector('.container');
+                requestAnimationFrame(() => {
+                    container.classList.add('show-projects');
+                });
+            });
+        } else if (!card.querySelector('.link-title').textContent.includes('Resume')) {
+            card.addEventListener('click', (e) => {
+                // If clicking an action icon, don't trigger the card click
+                if (e.target.closest('.action-icon')) {
+                    e.stopPropagation();
+                    return;
+                }
+                
+                const href = card.getAttribute('href');
+                if (href) {
+                    window.location.href = href;
+                }
+            });
+        }
+    });
+
+    // Handle back button
+    const backButton = document.querySelector('.back-button');
+    if (backButton) {
+        backButton.addEventListener('click', () => {
+            const container = document.querySelector('.container');
+            container.classList.remove('show-projects');
+        });
+    }
 });
 
 // Event listener utility
