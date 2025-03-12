@@ -599,10 +599,11 @@ input, textarea {
 /* Projects Section */
 .projects-content {
     display: none;
-    width: 90%;
-    max-width: clamp(300px, 75%, 1200px);
+    width: 100%;
+    max-width: 100%;
     margin: 0 auto;
     opacity: 0;
+    box-sizing: border-box;
 }
 
 .back-button {
@@ -664,33 +665,35 @@ input, textarea {
 .container.show-projects .projects-content {
     display: block;
     animation: fadeIn 0.3s ease forwards;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 1.25rem;
 }
 
 .container.show-projects .links {
     animation: fadeOut 0.3s ease forwards;
     pointer-events: none;
+    position: relative;
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
 @keyframes fadeOut {
     from {
         opacity: 1;
-        transform: translateY(0);
     }
     to {
         opacity: 0;
-        transform: translateY(-10px);
-        display: none;
+        visibility: hidden;
     }
 }
 
@@ -720,6 +723,13 @@ input, textarea {
 .header-content {
     text-align: center;
     margin-bottom: 1.5rem;
+}
+
+/* Keep header content consistent between views */
+.projects-content .header-content {
+    margin-bottom: 1.5rem;
+    opacity: 1;
+    transform: none;
 }
 
 .header-content img.profile-pic {
