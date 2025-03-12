@@ -78,6 +78,7 @@ main {
     flex-direction: column;
     gap: 0.875rem;
     padding: 0 1rem;
+    box-sizing: border-box;
 }
 
 /* Profile Card */
@@ -85,8 +86,10 @@ main {
     background: rgba(42, 47, 63, 0.95);
     border-radius: 24px;
     width: 100%;
+    max-width: 100%;
     padding: 1.25rem;
     text-align: center;
+    box-sizing: border-box;
     box-shadow: 
         0 4px 12px rgba(0, 0, 0, 0.1),
         0 20px 40px rgba(0, 0, 0, 0.2);
@@ -103,6 +106,7 @@ main {
     flex-direction: column;
     gap: 0.875rem;
     width: 100%;
+    box-sizing: border-box;
 }
 
 /* Links */
@@ -119,10 +123,12 @@ main {
     box-shadow: 
         0 2px 8px rgba(0, 0, 0, 0.1),
         0 8px 24px rgba(0, 0, 0, 0.1);
-    width: 75%;
+    width: 100%;
+    max-width: 75%;
     margin: 0 auto;
     opacity: 0;
     transform: translateY(20px);
+    box-sizing: border-box;
 }
 
 .link-card:hover {
@@ -538,5 +544,23 @@ input, textarea {
     .container {
         padding: 1.5rem;
         margin: 1rem auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        padding: 1rem;
+    }
+    
+    main {
+        padding: 0;
+    }
+    
+    .link-card {
+        max-width: 100%;
+    }
+    
+    .container {
+        padding: 1rem;
     }
 }

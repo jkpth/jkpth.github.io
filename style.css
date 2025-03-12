@@ -25,6 +25,7 @@ html,body {
     white-space: nowrap;
     animation: typing 1.6s ease-out forwards;
     padding-left: 0px;
+    font-size: clamp(1.2rem, 4vw, 2rem);
 }
 h2{
   cursor: default;
@@ -64,7 +65,8 @@ h3 {
   #who-section{
     font-family: 'Roboto Mono', monospace;    z-index: 0;
     padding-top: 5px;
-    width: 600px;
+    width: 90%;
+    max-width: 600px;
     height: 700px;
     margin: 0 auto; /* center the section horizontally */
     overflow: auto;
@@ -75,7 +77,8 @@ h3 {
   #what-section{
     font-family: 'Roboto Mono', monospace;    z-index: 0;
     padding-top: 5px;
-    width: 800px;
+    width: 90%;
+    max-width: 800px;
     height: 1400px;
     margin: 0 auto; /* center the section horizontally */
     overflow: auto;
@@ -87,7 +90,8 @@ h3 {
     font-family: 'Roboto Mono', monospace;
     z-index: 0;
     padding-top: 5px;
-    width: 600px;
+    width: 90%;
+    max-width: 600px;
     height: 700px;
     margin: 0 auto; /* center the section horizontally */
     overflow: auto;
@@ -225,4 +229,31 @@ a {
 
 .social-icons a:hover {
   color: #0077b5; /* LinkedIn color on hover, or choose your own */
+}
+
+@media screen and (max-width: 768px) {
+  textarea {
+    width: 80%;
+    max-width: 350px;
+  }
+  
+  #who-section p,
+  #why-section p,
+  #what-section p {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  h2 {
+    padding-left: 20px;
+  }
+
+  h3 {
+    padding-left: 25px;
+  }
+
+  .embed-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
