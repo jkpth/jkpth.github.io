@@ -189,8 +189,8 @@ h3 {
 }
 
 :root {
-  --card-height: 45vh;
-  --card-width: calc(var(--card-height) / 1.5);
+  --card-height: 18vh;
+  --card-width: calc(var(--card-height) / 1.1);
 }
 
 
