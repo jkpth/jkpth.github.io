@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1C7CCE40WL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-1C7CCE40WL');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0c0c0c">
+    <meta name="description" content="Swoop: an on-demand delivery app for a local store, with customer, driver and manager modes in one SwiftUI app, built by Jacob Thompson.">
+    <meta property="og:site_name" content="Jacob Thompson">
+    <meta property="og:title" content="Swoop · Jacob Thompson">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="On-demand delivery app: SwiftUI, Firebase, Stripe, Google Maps.">
+    <meta property="og:image" content="https://jpt.bio/swoop/img/icon.png">
+    <meta property="og:url" content="https://jpt.bio/swoop/">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://jpt.bio/swoop/">
+    <link rel="icon" href="img/icon.png">
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="swoop.css">
+    <title>Swoop · Jacob Thompson</title>
+</head>
+<body>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <div class="ps-window wide">
+        <div class="titlebar">
+            <div class="tabs">
+                <a class="tab is-back" href="/">
+                    <span class="ps-icon" aria-hidden="true"></span>
+                    jpt.bio
+                </a>
+                <span class="tab is-open">
+                    <span class="ps-icon" aria-hidden="true"></span>
+                    swoop
+                </span>
+                <span class="new-tab" aria-hidden="true">+</span>
+            </div>
+            <div class="win-controls" aria-hidden="true">
+                <span class="min"></span>
+                <span class="max"></span>
+                <span class="close"></span>
+            </div>
+        </div>
+
+        <main id="content" class="console">
+            <p class="prompt"><span class="ps">PS</span> C:\Users\jptho\projects&gt; <span class="cmd">Get-Project</span> swoop</p>
+
+            <article class="output">
+                <h1>Swoop</h1>
+                <p class="comment"># on-demand delivery for a local store.</p>
+                <p class="comment"># one iOS app, three roles: customer, driver, manager.</p>
+
+                <figure class="promo">
+                    <iframe src="promo.html" title="Swoop promo animation" allow="fullscreen" allowfullscreen loading="eager"></iframe>
+                </figure>
+
+                <h2 id="overview"><span class="kw">overview</span></h2>
+                <p>Swoop delivers from a single store: pouches, vapes, beer and seltzer, brought to the door. Most of the catalog is age-restricted, so every order has to end with an ID check, and the store has to know who took it and when.</p>
+                <p>It's one SwiftUI app with three modes. Customers browse, pay and track their order. Drivers claim orders, prep them, drive an optimized route and scan the customer's license at the door. Managers keep inventory, promotions and staff up to date. Which mode you get depends on the role on your account, and everything syncs live through Firestore.</p>
+
+                <h2 id="customer"><span class="kw">customer</span> <span class="comment"># order in a few taps</span></h2>
+                <p>The whole store is on one scrolling page, grouped by category and searchable. Promotions apply on their own at checkout: percent-off deals stack, and when BOGO and bundle deals compete, the biggest saving wins. Customers pick a quick tip, confirm that their ID will be scanned, and pay with a saved card or Apple Pay. After that they can follow the order through each status, from prepared to on the way.</p>
+
+                <div class="shots phones">
+                    <figure class="shot phone-shot">
+                        <img src="shots/customer-home.jpg" alt="Customer home screen with search and horizontal rows of Devices and Disposables, each tile showing a price and Tap to add" width="1206" height="2622" loading="lazy">
+                        <figcaption><span class="fn">Home</span> # every category, tap to add</figcaption>
+                    </figure>
+                    <figure class="shot phone-shot">
+                        <img src="shots/customer-cart.jpg" alt="Cart with two items, quantity steppers and a checked box confirming the driver will scan the customer's ID" width="1206" height="2622" loading="lazy">
+                        <figcaption><span class="fn">Cart</span> # ID confirmation</figcaption>
+                    </figure>
+                    <figure class="shot phone-shot">
+                        <img src="shots/customer-checkout.jpg" alt="Checkout with a route map from the store, order summary, a $2.50 tip selected, totals and a Pay button" width="1206" height="2622" loading="lazy">
+                        <figcaption><span class="fn">Checkout</span> # route, tip, pay</figcaption>
+                    </figure>
+                    <figure class="shot phone-shot">
+                        <img src="shots/customer-tracking-preparing.jpg" alt="Order tracking just after ordering, with Preparing as the current step" width="1206" height="2622" loading="lazy">
+                        <figcaption><span class="fn">Tracking</span> # preparing</figcaption>
+                    </figure>
+                    <figure class="shot phone-shot">
+                        <img src="shots/customer-tracking-onway.jpg" alt="The same order later, with Prepared and Driver ready complete and On the way in progress" width="1206" height="2622" loading="lazy">
+                        <figcaption><span class="fn">Tracking</span> # on the way</figcaption>
+                    </figure>
+                </div>
+                <p class="comment"># delivery addresses blurred</p>
+
+                <h2 id="driver"><span class="kw">driver</span> <span class="comment"># deliver and verify</span></h2>
+                <p>Drivers clock in and see open orders grouped by stage. They claim an order, check off each item as they pack it, and mark it prepared. Start Deliveries sends every stop to Google's Routes API with waypoint optimization, and the ordered route opens in Apple Maps or Google Maps. At the door, the camera reads the PDF417 barcode on the back of the customer's license, parses the birth date, and only lets the order complete if the customer is 21 or older.</p>
+
+                <div class="shots phones">
+                    <figure class="shot phone-shot">
+                        <img src="shots/driver-orders.jpg" alt="Driver Active Orders list with one order on the way and a Resume Deliveries button" width="1206" height="2622" loading="lazy">
+                        <figcaption><span class="fn">Active orders</span> # grouped by stage</figcaption>
+                    </figure>
+                    <figure class="shot phone-shot">
+                        <img src="shots/driver-order-detail.jpg" alt="Claimed order with both items checked off, an estimated delivery time, and Prepare Order and Unclaim Order buttons" width="1206" height="2622" loading="lazy">
+                        <figcaption><span class="fn">Order</span> # check off, prepare</figcaption>
+                    </figure>
+                </div>
+
+                <h2 id="manager"><span class="kw">manager</span> <span class="comment"># run the store</span></h2>
+                <p>Managers get four tabs: Inventory, Staff, Promotions and Store. Inventory shows live stock counts by category, and each product has its own page for price, stock, type and photo. Promotions come in four kinds: BOGO, bundle, percentage and fixed amount. Staff are added by phone number and given a role, and every order records who handled it.</p>
+
+                <div class="shots phones">
+                    <figure class="shot phone-shot">
+                        <img src="shots/manager-inventory.jpg" alt="Inventory list of nicotine products with stock counts, above the Inventory, Staff, Promotions and Store tab bar" width="1206" height="1694" loading="lazy">
+                        <figcaption><span class="fn">Inventory</span> # live stock counts</figcaption>
+                    </figure>
+                    <figure class="shot phone-shot">
+                        <img src="shots/manager-product.jpg" alt="Product detail for High Noon Variety Pack: photo, Edit button, price $18.99, stock 5, type Alcohol, group Seltzer" width="1206" height="2622" loading="lazy">
+                        <figcaption><span class="fn">Product</span> # price, stock, photo</figcaption>
+                    </figure>
+                </div>
+
+                <h2 id="build"><span class="kw">under the hood</span></h2>
+                <ul class="notes">
+                    <li><span class="fn">One app, three roles.</span> Sign-in is by phone number with Firebase Auth. The role stored on the account decides whether the app opens into the customer, driver or manager view.</li>
+                    <li><span class="fn">Live everywhere.</span> Orders, promotions and inventory use Firestore snapshot listeners, so a driver claiming an order shows up on the customer's tracking screen and the manager's list right away.</li>
+                    <li><span class="fn">Payments</span> run through Stripe's PaymentSheet with Apple Pay. The app writes a checkout session to Firestore and waits for the server to hand back a PaymentIntent secret, so no keys live on the device.</li>
+                    <li><span class="fn">ID scanning</span> uses AVFoundation to read the PDF417 barcode on a driver's license, then parses the AAMVA fields for birth date and expiration.</li>
+                    <li><span class="fn">Routing</span> calls the Google Routes API with waypoint optimization. Addresses come from Google Places autocomplete and are checked against the delivery zone.</li>
+                    <li><span class="fn">Promotion engine</span> stacks every percentage deal, then applies only the single best BOGO or bundle deal.</li>
+                    <li><span class="fn">Notifications</span> go out from Cloud Functions through Firebase Cloud Messaging when an order is confirmed and when it is on the way. A WidgetKit extension holds a Live Activity layout for order status and estimated delivery time.</li>
+                </ul>
+
+                <h2 id="details"><span class="kw">details</span></h2>
+                <dl class="facts">
+                    <div><dt>role</dt><dd>solo: design, iOS, backend</dd></div>
+                    <div><dt>app</dt><dd><span class="str">SwiftUI</span> (iOS), ActivityKit, WidgetKit, Lottie</dd></div>
+                    <div><dt>backend</dt><dd><span class="str">Firebase</span>: Auth, Firestore, Cloud Functions, Cloud Messaging</dd></div>
+                    <div><dt>services</dt><dd><span class="str">Stripe</span> + Apple Pay, Google Maps, Places and Routes</dd></div>
+                    <div><dt>built</dt><dd>2024</dd></div>
+                </dl>
+            </article>
+
+            <p class="prompt"><span class="ps">PS</span> C:\Users\jptho\projects&gt; <a href="https://github.com/jkpth" target="_blank" rel="noopener noreferrer">github</a> <a href="mailto:jptho@proton.me">email</a> <a href="/">back</a> <span class="caret" aria-hidden="true"></span></p>
+        </main>
+    </div>
+
+    <dialog class="viewer" id="viewer" aria-label="Screenshot viewer">
+        <figure>
+            <img id="viewerImg" alt="">
+            <figcaption id="viewerCap"></figcaption>
+        </figure>
+        <button class="v-btn v-prev" id="viewerPrev" aria-label="Previous screenshot">&lt;</button>
+        <button class="v-btn v-next" id="viewerNext" aria-label="Next screenshot">&gt;</button>
+        <button class="v-btn v-close" id="viewerClose" aria-label="Close">×</button>
+    </dialog>
+
+    <script>
+        // Click a screenshot to view it large; arrows step through, Esc or a click outside closes.
+        (function () {
+            var imgs = Array.prototype.slice.call(document.querySelectorAll('.shot img'));
+            var dlg = document.getElementById('viewer'), big = document.getElementById('viewerImg'), cap = document.getElementById('viewerCap');
+            var cur = 0;
+            function show(i) {
+                cur = (i + imgs.length) % imgs.length;
+                var img = imgs[cur];
+                big.src = img.currentSrc || img.src;
+                big.alt = img.alt;
+                big.classList.toggle('tall', img.naturalHeight > img.naturalWidth);
+                cap.innerHTML = img.closest('figure').querySelector('figcaption').innerHTML;
+            }
+            imgs.forEach(function (img, i) {
+                img.tabIndex = 0;
+                img.setAttribute('role', 'button');
+                img.addEventListener('click', function () { show(i); dlg.showModal(); });
+                img.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(i); dlg.showModal(); } });
+            });
+            document.getElementById('viewerPrev').addEventListener('click', function () { show(cur - 1); });
+            document.getElementById('viewerNext').addEventListener('click', function () { show(cur + 1); });
+            document.getElementById('viewerClose').addEventListener('click', function () { dlg.close(); });
+            dlg.addEventListener('click', function (e) { if (e.target === dlg || e.target.tagName === 'FIGURE') dlg.close(); });
+            dlg.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowLeft') show(cur - 1);
+                if (e.key === 'ArrowRight') show(cur + 1);
+            });
+        })();
+    </script>
+</body>
+</html>
