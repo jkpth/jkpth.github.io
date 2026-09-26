@@ -1,0 +1,863 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EchoReach Promo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Geist:wght@300..800&family=Geist+Mono:wght@400..600&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --ink:#060607; --bg:#0A0A0A; --surface:#18181B; --elev:#27272A; --line:#3F3F46;
+  --text:#FAFAFA; --muted:#A1A1AA; --dim:#71717A; --faint:#52525B;
+  --red:#DC2626; --red-hi:#EF4444; --red-lo:#991B1B;
+  --green:#10B981; --amber:#F59E0B; --blue:#3B82F6; --purple:#9333EA;
+  --display:"Archivo", "Arial Narrow", Impact, system-ui, sans-serif;
+  --sans:"Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"Geist Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+html,body{background:var(--ink);color:var(--text)}
+body{font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.page{max-width:1240px;margin:0 auto;padding-inline:16px;padding-block:20px 40px;display:flex;flex-direction:column;gap:14px}
+.masthead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.01em}
+.brand .eagle{width:28px;height:28px}
+.meta{font-family:var(--mono);font-size:12px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+
+/* ---------- viewport + stage ---------- */
+.viewport{position:relative;width:100%;aspect-ratio:16/9;max-width:100%;overflow:hidden;border-radius:14px;background:var(--bg);box-shadow:0 0 0 1px #1f1f23,0 30px 80px -30px rgba(220,38,38,.25)}
+.viewport:fullscreen{border-radius:0;aspect-ratio:auto;width:100vw;height:100vh;background:#000}
+.stage{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0;overflow:hidden;background:
+  radial-gradient(1200px 700px at 50% 45%, #121214 0%, #0A0A0A 60%, #070708 100%)}
+.stage *{box-sizing:border-box}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:40px 40px;mask-image:radial-gradient(900px 600px at 50% 50%,#000 30%,transparent 80%);-webkit-mask-image:radial-gradient(900px 600px at 50% 50%,#000 30%,transparent 80%)}
+#ripples{position:absolute;inset:0;width:1600px;height:900px;pointer-events:none}
+.vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(1100px 700px at 50% 50%,transparent 55%,rgba(0,0,0,.55) 100%);z-index:50}
+.grain{position:absolute;inset:-50%;pointer-events:none;z-index:51;opacity:.06;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.scene{position:absolute;inset:0;visibility:hidden;opacity:0}
+.abs{position:absolute}
+
+.eagle{background:url("img/eagle.png") center/contain no-repeat}
+.lockup{display:block;width:100%;height:auto}
+.eyebrow{font-family:var(--mono);font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:var(--red-hi)}
+.h-xl{font-family:var(--display);font-weight:900;font-stretch:78%;font-size:84px;line-height:.95;letter-spacing:-.01em;text-wrap:balance}
+.h-lg{font-family:var(--display);font-weight:850;font-stretch:82%;font-size:64px;line-height:1;letter-spacing:-.01em;text-wrap:balance}
+.sub{font-size:22px;line-height:1.45;color:var(--muted);max-width:620px}
+.word{display:inline-block;will-change:transform}
+
+/* ---------- device chrome ---------- */
+.laptop{position:absolute}
+.laptop .lid{position:absolute;inset:0 0 22px 0;border-radius:18px 18px 6px 6px;background:#0d0d0f;border:2px solid #34343a;padding:14px}
+.laptop .lid .scr{width:100%;height:100%;border-radius:6px;background:var(--bg);overflow:hidden;position:relative}
+.laptop .base{position:absolute;left:-40px;right:-40px;bottom:0;height:22px;border-radius:0 0 18px 18px;background:linear-gradient(#3a3a40,#1d1d21)}
+.phone{position:absolute;border-radius:58px;background:#050505;border:3px solid #3a3a40;padding:12px;box-shadow:0 40px 80px -30px rgba(0,0,0,.8),inset 0 0 0 2px #111}
+.phone .scr{position:relative;width:100%;height:100%;border-radius:46px;overflow:hidden;background:var(--bg)}
+.island{position:absolute;left:50%;top:10px;width:110px;height:32px;border-radius:20px;background:#000;transform:translateX(-50%);z-index:20}
+.sbar{position:absolute;left:0;right:0;top:0;height:50px;display:flex;align-items:center;justify-content:space-between;padding:6px 30px 0;font-weight:600;font-size:15px;z-index:10}
+.sbar .ic{display:flex;gap:5px;align-items:center}
+.sbar .ic i{display:block;background:var(--text);border-radius:2px}
+
+/* ---------- S3 platform ---------- */
+.mini-side{position:absolute;left:0;top:0;bottom:0;width:120px;background:#0f0f11;border-right:1px solid #232327;padding:14px 10px;display:flex;flex-direction:column;gap:9px}
+.mini-side i{display:block;height:9px;border-radius:3px;background:#27272a}
+.mini-side i.on{background:var(--red)}
+.mini-main{position:absolute;left:136px;right:16px;top:16px;bottom:16px;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:64px 1fr;gap:10px}
+.mini-main .c{background:var(--surface);border:1px solid #27272a;border-radius:8px}
+.mini-main .map{grid-column:1/-1;position:relative;overflow:hidden}
+.dev-label{position:absolute;text-align:center;font-family:var(--mono);font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.dev-label b{display:block;font-family:var(--display);font-stretch:85%;font-size:34px;letter-spacing:-.005em;text-transform:none;color:var(--text);margin-bottom:4px}
+
+/* ---------- S4 import ---------- */
+.csv{position:absolute;left:100px;top:330px;width:730px;border:1px solid #27272a;border-radius:12px;background:#0f0f11;overflow:hidden;font-family:var(--mono);font-size:14px}
+.csv .bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #27272a;color:var(--muted)}
+.csv .bar .file{color:var(--text)}
+.csv .bar .pill{margin-left:auto;font-size:12px;padding:3px 9px;border-radius:99px;background:rgba(16,185,129,.12);color:var(--green)}
+.csv .row{display:grid;grid-template-columns:62px 92px 100px 150px 104px 1fr;gap:10px;padding:8px 16px;border-bottom:1px solid #1c1c20;white-space:nowrap;overflow:hidden}
+.csv .row.head{color:var(--dim);font-size:12px;letter-spacing:.04em;background:#131316}
+.csv .row span{overflow:hidden;text-overflow:ellipsis}
+.csv .tag{color:var(--amber)}
+.map-wrap{position:absolute;left:880px;top:190px;width:620px;height:560px;border-radius:16px;overflow:hidden;background:#101012;border:1px solid #27272a;transform-origin:0 0;visibility:hidden;opacity:0}
+.map-wrap svg{display:block}
+.counter{position:absolute;left:100px;top:790px;display:flex;align-items:baseline;gap:14px}
+.counter .n{font-family:var(--display);font-weight:900;font-stretch:80%;font-size:72px;line-height:1;font-variant-numeric:tabular-nums}
+.counter .l{font-family:var(--mono);font-size:15px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+
+/* ---------- S5 walkbook ---------- */
+.panel{position:absolute;background:var(--surface);border:1px solid #27272a;border-radius:14px;padding:22px}
+.panel h4{margin:0 0 14px;font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{font-family:var(--mono);font-size:15px;padding:7px 14px;border-radius:99px;border:1px solid #3f3f46;color:var(--muted);background:#141417}
+.chip.on{border-color:var(--red);color:#fff;background:rgba(220,38,38,.18)}
+.wb-title{font-family:var(--display);font-weight:850;font-stretch:85%;font-size:40px;line-height:1.05;margin:0 0 6px}
+.kv{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.kv div{background:#111113;border:1px solid #232327;border-radius:10px;padding:12px 14px}
+.kv b{display:block;font-family:var(--display);font-stretch:85%;font-size:36px;line-height:1;font-variant-numeric:tabular-nums}
+.kv span{font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+.assign{display:flex;align-items:center;gap:14px;padding:14px;border-radius:12px;border:1px dashed #3f3f46}
+.avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-weight:700;background:#27272a;color:var(--text);flex:none}
+.assign .who{font-weight:600;font-size:18px}
+.assign .who small{display:block;font-weight:400;font-size:14px;color:var(--dim)}
+.badge{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:6px}
+.badge.green{background:rgba(16,185,129,.14);color:var(--green)}
+.badge.red{background:rgba(220,38,38,.16);color:var(--red-hi)}
+.badge.amber{background:rgba(245,158,11,.14);color:var(--amber)}
+.badge.zinc{background:#27272a;color:var(--muted)}
+.cursor{position:absolute;width:26px;height:26px;z-index:40;pointer-events:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.6))}
+.tap{position:absolute;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;border:2px solid #fff;z-index:40;opacity:0;pointer-events:none}
+
+/* ---------- S6 field app ---------- */
+.appbar{position:absolute;left:0;right:0;top:50px;padding:10px 22px;display:flex;align-items:center;gap:12px}
+.appbar .t{font-weight:700;font-size:21px;line-height:1.15}
+.appbar .s{font-size:13px;color:var(--dim)}
+.appbar .sp{margin-left:auto;display:flex;gap:10px}
+.appbar .sp i{width:34px;height:34px;border-radius:10px;background:#1c1c1f;display:block}
+.pscreen{position:absolute;inset:0}
+.pcard{background:var(--surface);border:1px solid #27272a;border-radius:16px}
+.prog{position:absolute;left:18px;right:18px;top:122px;padding:14px 16px}
+.prog .top{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:var(--muted)}
+.prog .top b{font-size:22px;color:var(--text);font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:9px;background:#27272a;overflow:hidden;margin:10px 0 12px}
+.bar i{display:block;height:100%;background:var(--red);border-radius:9px}
+.stat3{display:flex;gap:8px;font-size:12px}
+.stat3 span{flex:1;text-align:center;padding:6px 0;border-radius:8px;background:#111113;color:var(--dim)}
+.stat3 b{display:block;font-size:16px;color:var(--text);font-variant-numeric:tabular-nums}
+.pmap{position:absolute;left:18px;right:18px;top:262px;height:236px;border-radius:16px;overflow:hidden;background:#101012;border:1px solid #27272a}
+.hlist{position:absolute;left:18px;right:18px;top:512px;display:flex;flex-direction:column;gap:10px}
+.hh{display:flex;align-items:center;gap:12px;padding:12px 14px}
+.hh .nm{font-weight:600;font-size:15px}
+.hh .ad{font-size:12.5px;color:var(--dim)}
+.hh .go{margin-left:auto;font-weight:700;font-size:12px;letter-spacing:.08em;padding:8px 12px;border-radius:9px;background:var(--red);color:#fff}
+.hh .go.retry{background:rgba(245,158,11,.16);color:var(--amber)}
+.pin{width:10px;height:10px;border-radius:50%;flex:none}
+.scriptc{position:absolute;left:18px;right:18px;top:126px;padding:14px 16px;border-left:3px solid var(--red)}
+.scriptc h5,.qc h5{margin:0 0 6px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.scriptc p{margin:0;font-size:14.5px;line-height:1.45;min-height:84px}
+.caret{display:inline-block;width:2px;height:15px;background:var(--red-hi);vertical-align:-2px;margin-left:1px}
+.qc{position:absolute;left:18px;right:18px;padding:14px 16px}
+.qc .q{font-weight:600;font-size:15px;margin-bottom:10px;line-height:1.35}
+.yn{display:flex;gap:10px}
+.yn span{flex:1;text-align:center;padding:10px;border-radius:10px;border:1px solid #3f3f46;font-weight:600;color:var(--muted)}
+.rate{display:flex;gap:8px}
+.rate span{flex:1;height:40px;border-radius:10px;border:1px solid #3f3f46;display:grid;place-items:center;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.notes{font-size:14px;color:var(--text);padding:10px 12px;border-radius:10px;background:#111113;border:1px solid #27272a;min-height:42px}
+.submit{position:absolute;left:18px;right:18px;bottom:26px;height:56px;border-radius:14px;background:var(--red);display:grid;place-items:center;font-weight:700;font-size:17px}
+.toast{position:absolute;left:18px;right:18px;bottom:96px;padding:14px 16px;border-radius:14px;background:#052e22;border:1px solid rgba(16,185,129,.5);color:#a7f3d0;font-weight:600;font-size:14.5px;display:flex;gap:10px;align-items:center}
+.toast i{width:22px;height:22px;border-radius:50%;background:var(--green);display:grid;place-items:center;color:#04130d;font-style:normal;font-weight:900;font-size:13px}
+.legend{position:absolute;left:18px;right:18px;top:118px;display:flex;flex-wrap:wrap;gap:6px 12px;padding:10px 14px;font-size:12px;color:var(--muted);background:rgba(24,24,27,.9);border:1px solid #27272a;border-radius:12px;z-index:3}
+.legend span{display:flex;align-items:center;gap:6px}
+.sheet{position:absolute;left:0;right:0;bottom:0;padding:18px 20px 30px;background:var(--surface);border-top:1px solid #3f3f46;border-radius:24px 24px 0 0;z-index:4}
+.sheet .grab{width:44px;height:5px;border-radius:5px;background:#3f3f46;margin:0 auto 14px}
+.sheet .nm{font-weight:700;font-size:18px}
+.sheet .ad{font-size:13px;color:var(--dim);margin-bottom:14px}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sgrid span{padding:10px;border-radius:10px;border:1px solid #3f3f46;text-align:center;font-weight:600;font-size:13.5px;color:var(--muted)}
+.feat{position:absolute;left:800px;width:700px}
+.feat .h{font-family:var(--display);font-weight:900;font-stretch:80%;font-size:78px;line-height:.95;letter-spacing:-.01em}
+.feat p{font-size:21px;line-height:1.45;color:var(--muted);margin:14px 0 0;max-width:600px}
+.feat .k{font-family:var(--mono);font-size:14px;letter-spacing:.2em;color:var(--red-hi);text-transform:uppercase;margin-bottom:10px}
+
+/* ---------- S7 dashboard ---------- */
+.browser{position:absolute;left:90px;top:130px;width:1420px;height:740px;border-radius:14px;overflow:hidden;background:#0c0c0e;border:1px solid #2a2a2f;box-shadow:0 50px 100px -40px rgba(0,0,0,.9)}
+.chrome{height:40px;display:flex;align-items:center;gap:8px;padding:0 16px;background:#141417;border-bottom:1px solid #232327}
+.chrome i{width:12px;height:12px;border-radius:50%;background:#3f3f46;display:block}
+.chrome .url{margin-left:18px;flex:0 1 520px;height:26px;border-radius:8px;background:#0c0c0e;font-family:var(--mono);font-size:13px;color:var(--dim);display:flex;align-items:center;padding:0 12px}
+.dside{position:absolute;left:0;top:40px;bottom:0;width:230px;background:#0f0f11;border-right:1px solid #232327;padding:20px 14px;display:flex;flex-direction:column;gap:4px}
+.dside .bd{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:20px;padding:0 8px 18px}
+.dside .bd .eagle{width:26px;height:26px}
+.dside a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:var(--muted);font-size:14.5px;text-decoration:none}
+.dside a i{width:16px;height:16px;border-radius:4px;border:1.5px solid currentColor;opacity:.7}
+.dside a.on{background:rgba(220,38,38,.14);color:#fff}
+.dside a.on i{border-color:var(--red-hi);opacity:1}
+.dmain{position:absolute;left:230px;right:0;top:40px;bottom:0;padding:24px 28px}
+.dhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.dhead h3{margin:0;font-size:26px;font-weight:800;letter-spacing:-.01em}
+.camp{font-size:14px;padding:8px 14px;border-radius:9px;border:1px solid #3f3f46;color:var(--text)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.st{position:relative;overflow:hidden;background:var(--surface);border:1px solid #27272a;border-radius:10px;padding:18px}
+.st .blob{position:absolute;right:-60px;top:-60px;width:128px;height:128px;border-radius:50%;opacity:.14}
+.st .row1{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.st .ico{width:38px;height:38px;border-radius:9px;display:grid;place-items:center}
+.st .ico i{width:18px;height:18px;border-radius:5px;border:2.5px solid currentColor;display:block}
+.st .hint{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-variant-numeric:tabular-nums}
+.st .v{font-size:40px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;margin-bottom:8px}
+.st .lb{font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.st .pb{height:10px;border-radius:9px;background:#27272a;border:2px solid #e4e4e7;overflow:hidden;margin-top:10px}
+.st .pb i{display:block;height:100%;width:0;background:var(--purple)}
+.lower{display:grid;grid-template-columns:320px 1fr;gap:16px;margin-top:16px}
+.online{background:var(--surface);border:1px solid #27272a;border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:10px;height:420px}
+.online .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.online .hd b{font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em}
+.live{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--dim)}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--green);display:block}
+.cv{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:9px;background:#202024;border-left:2px solid var(--green)}
+.cv .av{position:relative;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;flex:none}
+.cv .av::after{content:"";position:absolute;right:-1px;bottom:-1px;width:11px;height:11px;border-radius:50%;background:var(--green);border:2px solid #202024}
+.cv .n{font-weight:600;font-size:14.5px}
+.cv .a{font-size:12px;color:var(--dim)}
+.cv .c{margin-left:auto;font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.livemap{position:relative;background:#101012;border:1px solid #27272a;border-radius:10px;overflow:hidden;height:420px}
+.livemap .ttl{position:absolute;left:16px;top:14px;font-size:16px;font-weight:800;text-transform:uppercase;z-index:2}
+.log{position:absolute;right:14px;bottom:14px;width:356px;height:214px;background:rgba(15,15,17,.92);border:1px solid #2a2a2f;border-radius:10px;padding:12px 14px;overflow:hidden;z-index:2}
+.log h6{margin:0 0 8px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--dim);font-weight:500;text-transform:uppercase}
+.log .rows{position:relative;height:170px}
+.log .e{position:absolute;left:0;right:0;top:0;height:40px;display:grid;grid-template-columns:70px 1fr auto;gap:8px;align-items:center;font-size:13px;border-bottom:1px solid #1f1f23}
+.log .e .t{font-family:var(--mono);font-size:12px;color:var(--dim)}
+.log .e .gps{font-family:var(--mono);font-size:11px;color:var(--green)}
+.lt{position:absolute;left:600px;top:40px;width:900px}
+
+/* ---------- S8 outro ---------- */
+.out-lock{position:absolute;left:0;right:0;top:215px;display:flex;flex-direction:column;align-items:center}
+.out-lock .eagle{width:210px;height:210px}
+.out-word{font-family:var(--display);font-weight:900;font-size:150px;line-height:.9;letter-spacing:-.03em;margin-top:18px}
+.out-word .r{color:var(--red)}
+.out-sub{font-size:28px;color:var(--muted);margin-top:22px;text-align:center}
+.plats{display:flex;gap:12px;margin-top:30px}
+.plats span{font-family:var(--mono);font-size:15px;letter-spacing:.14em;text-transform:uppercase;padding:10px 18px;border-radius:99px;border:1px solid #3f3f46;color:var(--text)}
+.ribbon{position:absolute;left:0;right:0;bottom:70px;text-align:center;font-family:var(--mono);font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.ribbon b{color:var(--red-hi);font-weight:500;padding:0 10px}
+
+/* ---------- controls ---------- */
+.controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.btn{appearance:none;border:1px solid #2e2e33;background:#141417;color:var(--text);height:42px;min-width:42px;border-radius:10px;display:inline-grid;place-items:center;cursor:pointer;padding:0 12px;font:600 14px var(--sans)}
+.btn:hover{border-color:#52525b}
+.btn:focus-visible,.chap:focus-visible,#scrub:focus-visible{outline:2px solid var(--red-hi);outline-offset:2px}
+.btn.play{background:var(--red);border-color:var(--red);width:52px}
+.btn svg{width:18px;height:18px;fill:currentColor}
+.scrubwrap{flex:1 1 300px;display:flex;align-items:center;gap:12px;min-width:0}
+#scrub{flex:1;min-width:0;appearance:none;-webkit-appearance:none;height:6px;border-radius:6px;background:linear-gradient(90deg,var(--red) var(--p,0%),#27272a var(--p,0%));cursor:pointer}
+#scrub::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--red)}
+#scrub::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--red)}
+.time{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.chapters{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.chap{appearance:none;text-align:left;border:1px solid #232327;background:#0e0e10;color:var(--muted);border-radius:10px;padding:10px 12px;cursor:pointer;font:13px var(--sans);display:flex;flex-direction:column;gap:2px}
+.chap b{color:var(--text);font-weight:600;font-size:14px}
+.chap span{font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+.chap.on{border-color:var(--red);background:rgba(220,38,38,.1)}
+.chap.on span{color:var(--red-hi)}
+@media (max-width:560px){.meta{display:none}.chapters{grid-template-columns:repeat(2,1fr)}}
+html,body{margin:0;height:100%;overflow:hidden;background:#0A0A0A}
+.page{position:relative;max-width:none;padding:0;height:100%;display:block}
+.masthead,.chapters{display:none}
+.viewport{width:100%;height:100%;aspect-ratio:auto;border-radius:0;box-shadow:none}
+.controls{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 12px;gap:10px;flex-wrap:nowrap;background:linear-gradient(transparent,rgba(0,0,0,.75));opacity:0;transition:opacity .25s;z-index:5}
+.page:hover .controls,.controls:focus-within,.page.paused .controls{opacity:1}
+.btn{height:36px;min-width:36px}
+.btn.play{width:44px}
+@media (hover:none){.controls{opacity:1}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <div class="brand"><div class="eagle"></div>EchoReach</div>
+    <div class="meta">Promo film · Web + Mobile · <span id="durLabel">0:47</span></div>
+  </header>
+
+  <div class="viewport" id="viewport">
+    <div class="stage" id="stage" aria-label="EchoReach promo animation" role="img">
+      <div class="grid-bg"></div>
+      <canvas id="ripples" width="1600" height="900"></canvas>
+
+      <!-- S1 LOGO SNIP -->
+      <section class="scene" id="s1">
+        <div class="abs" id="introLock" style="left:350px;top:269px;width:900px">
+          <img class="lockup" src="img/lockup.png" alt="EchoReach">
+        </div>
+        <div class="abs" id="introSweep" style="left:350px;top:240px;width:3px;height:420px;background:linear-gradient(transparent,#EF4444,transparent);opacity:0"></div>
+      </section>
+
+      <!-- S3 PLATFORM -->
+      <section class="scene" id="s3">
+        <div class="abs" style="left:100px;top:64px;width:1400px">
+          <div class="eyebrow" id="s3eb">One platform</div>
+          <div class="h-xl" id="s3h" style="margin-top:10px">Two apps. One campaign.</div>
+        </div>
+        <div class="laptop" id="s3lap" style="left:130px;top:290px;width:660px;height:420px">
+          <div class="lid"><div class="scr">
+            <div class="mini-side"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="mini-main">
+              <div class="c"></div><div class="c"></div><div class="c"></div><div class="c"></div>
+              <div class="c map"><svg width="100%" height="100%" viewBox="0 0 470 250" preserveAspectRatio="none" id="s3map"></svg></div>
+            </div>
+          </div></div>
+          <div class="base"></div>
+        </div>
+        <div class="dev-label" style="left:130px;top:740px;width:660px"><b>Admin Portal</b>Web · Campaign HQ</div>
+
+        <div class="phone" id="s3ph" style="left:1130px;top:230px;width:250px;height:500px;border-radius:40px;padding:9px">
+          <div class="scr" style="border-radius:32px">
+            <div style="position:absolute;left:14px;right:14px;top:40px;display:flex;flex-direction:column;gap:9px" id="s3plist">
+              <div style="height:14px;width:60%;border-radius:4px;background:#3f3f46"></div>
+              <div style="height:110px;border-radius:12px;background:#141417;border:1px solid #27272a"></div>
+              <div class="pcard" style="height:54px;border-radius:12px"></div>
+              <div class="pcard" style="height:54px;border-radius:12px"></div>
+              <div class="pcard" style="height:54px;border-radius:12px"></div>
+              <div style="height:44px;border-radius:12px;background:var(--red);margin-top:6px"></div>
+            </div>
+          </div>
+        </div>
+        <div class="dev-label" style="left:1055px;top:760px;width:400px"><b>Field App</b>iOS · Android</div>
+
+        <svg class="abs" style="left:0;top:0" width="1600" height="900" viewBox="0 0 1600 900" id="s3link">
+          <path id="s3path" d="M800,470 C900,380 1010,560 1115,470" fill="none" stroke="#3f3f46" stroke-width="2.5" stroke-dasharray="6 9"/>
+          <g id="s3packets"></g>
+        </svg>
+        <div class="sub abs" id="s3sub" style="left:100px;top:210px;max-width:900px">Plan turf on the web. Knock doors on the phone. Every result syncs back in real time.</div>
+      </section>
+
+      <!-- S4 IMPORT -->
+      <section class="scene" id="s4">
+        <div class="abs" style="left:100px;top:64px;width:760px">
+          <div class="eyebrow">Admin portal · Contacts</div>
+          <div class="h-lg" id="s4h" style="margin-top:12px">Bring your voter file.</div>
+          <div class="sub" id="s4sub" style="margin-top:16px">Import a CSV. Every contact is geocoded, tagged and placed on the map.</div>
+        </div>
+        <div class="csv" id="csv">
+          <div class="bar"><span class="file">mock-voter-data.csv</span><span>13 columns</span><span class="pill" id="csvpill">Importing…</span></div>
+          <div class="row head"><span>voter_id</span><span>first_name</span><span>last_name</span><span>street_address</span><span>party</span><span>tags</span></div>
+        </div>
+        <div class="counter"><span class="n" id="cnt">0</span><span class="l">contacts imported</span></div>
+      </section>
+
+      <!-- S5 WALKBOOK -->
+      <section class="scene" id="s5">
+        <div class="abs" style="left:880px;top:64px;width:640px">
+          <div class="eyebrow">Admin portal · Walkbooks</div>
+          <div class="h-lg" id="s5h" style="margin-top:12px">Cut turf in seconds.</div>
+        </div>
+        <div class="panel" id="s5tags" style="left:880px;top:236px;width:620px">
+          <h4>Filter contacts by tag</h4>
+          <div class="chips">
+            <span class="chip" id="chipSenior">senior</span><span class="chip">veteran</span><span class="chip">frequent_voter</span><span class="chip">new_voter</span><span class="chip">parent</span>
+          </div>
+        </div>
+        <div class="panel" id="s5card" style="left:880px;top:410px;width:620px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h4 style="margin:0">New walkbook</h4><span class="badge zinc" id="wbBadge">Unassigned</span></div>
+          <div class="wb-title">Elm St North</div>
+          <div style="color:var(--dim);font-size:15px">Springfield, IL · tag: <span style="color:var(--amber);font-family:var(--mono)">senior</span></div>
+          <div class="kv">
+            <div><b id="wbHH">0</b><span>Households</span></div>
+            <div><b id="wbCt">0</b><span>Contacts</span></div>
+            <div><b>1.8<small style="font-size:18px"> mi</small></b><span>Route</span></div>
+          </div>
+          <div class="assign" id="wbAssign">
+            <div class="avatar" style="background:rgba(220,38,38,.2);color:#fca5a5">ML</div>
+            <div class="who">Maria Lopez<small>Canvasser · 12 walkbooks completed</small></div>
+            <span class="badge green" id="wbAssigned" style="margin-left:auto">Assigned</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- shared map across S4 → S5 -->
+      <div class="map-wrap" id="mapwrap">
+        <svg width="620" height="560" viewBox="0 0 620 560" id="bigmap">
+          <g id="bmStreets"></g>
+          <path id="lasso" pathLength="1" d="" fill="rgba(220,38,38,.08)" stroke="#EF4444" stroke-width="2.5" stroke-dasharray="1 1" stroke-dashoffset="1" fill-opacity="0"/>
+          <g id="bmDots"></g>
+        </svg>
+      </div>
+
+      <!-- S6 FIELD APP -->
+      <section class="scene" id="s6">
+        <div class="phone" id="s6phone" style="left:250px;top:36px;width:400px;height:828px">
+          <div class="scr">
+            <div class="island"></div>
+            <div class="sbar"><span>9:41</span><span class="ic"><i style="width:17px;height:10px"></i><i style="width:15px;height:10px;opacity:.8"></i><i style="width:24px;height:11px;border-radius:3px"></i></span></div>
+
+            <!-- A: walkbook detail -->
+            <div class="pscreen" id="pA">
+              <div class="appbar"><div><div class="t">Elm St North</div><div class="s">Springfield Forward</div></div><div class="sp"><i></i><i></i></div></div>
+              <div class="pcard prog">
+                <div class="top"><span>Complete</span><b id="pAcount">18 / 42</b></div>
+                <div class="bar"><i id="pAbar" style="width:43%"></i></div>
+                <div class="stat3"><span><b id="pApend">22</b>Pending</span><span><b id="pAdone">18</b>Completed</span><span><b>2</b>Skipped</span></div>
+              </div>
+              <div class="pmap">
+                <svg width="336" height="236" viewBox="0 0 336 236" id="pAmap"></svg>
+              </div>
+              <div class="hlist">
+                <div class="pcard hh" id="hhMary"><span class="pin" style="background:var(--dim)"></span><div><div class="nm">Mary Johnson</div><div class="ad">456 Oak Ave · senior</div></div><span class="go">VISIT</span></div>
+                <div class="pcard hh"><span class="pin" style="background:var(--dim)"></span><div><div class="nm">Thomas Moore</div><div class="ad">159 Hickory Rd · retiree</div></div><span class="go">VISIT</span></div>
+                <div class="pcard hh"><span class="pin" style="background:var(--amber)"></span><div><div class="nm">Patricia Brown</div><div class="ad">321 Elm St · volunteer</div></div><span class="go retry">RETRY</span></div>
+              </div>
+            </div>
+
+            <!-- B: household survey -->
+            <div class="pscreen" id="pB" style="visibility:hidden;opacity:0">
+              <div class="appbar"><div><div class="t">Mary Johnson</div><div class="s">456 Oak Ave · Springfield, IL</div></div><div class="sp"><span class="badge red" style="align-self:center">REP</span></div></div>
+              <div class="pcard scriptc"><h5>Opening Script</h5><p><span id="scriptTxt"></span><span class="caret" id="caret"></span></p></div>
+              <div class="pcard qc" id="q1" style="top:262px"><h5>Question 1 · Yes / No</h5><div class="q">Is the cost of healthcare a top issue for you?</div><div class="yn"><span id="ynYes">Yes</span><span>No</span></div></div>
+              <div class="pcard qc" id="q2" style="top:398px"><h5>Question 2 · Rating</h5><div class="q">How likely are you to vote on November 3?</div><div class="rate" id="rate"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+              <div class="pcard qc" id="q3" style="top:534px"><h5>Additional Notes</h5><div class="notes"><span id="noteTxt"></span></div></div>
+              <div class="toast" id="toast"><i>✓</i>Survey submitted successfully!</div>
+              <div class="submit" id="submitBtn">Submit Survey</div>
+            </div>
+
+            <!-- C: map view -->
+            <div class="pscreen" id="pC" style="visibility:hidden;opacity:0">
+              <svg class="abs" style="left:0;top:0" width="376" height="804" viewBox="0 0 376 804" id="pCmap"></svg>
+              <div class="legend"><span><i class="pin" style="background:var(--dim)"></i>Pending</span><span><i class="pin" style="background:var(--green)"></i>Completed</span><span><i class="pin" style="background:var(--amber)"></i>Not Home</span><span><i class="pin" style="background:var(--red-hi)"></i>Refused</span><span><i class="pin" style="background:#a78bfa"></i>Moved</span></div>
+              <div class="sheet" id="sheet">
+                <div class="grab"></div>
+                <div class="nm">Patricia Brown</div>
+                <div class="ad">321 Elm St · Knock logged 10:42 AM · GPS verified</div>
+                <div class="sgrid"><span id="sgDone">Completed</span><span id="sgNH">Not Home</span><span>Refused</span><span>Moved</span></div>
+              </div>
+            </div>
+            <div class="tap" id="tap"></div>
+          </div>
+        </div>
+
+        <div class="abs" style="left:800px;top:92px"><div class="eyebrow">Field app · iOS &amp; Android</div></div>
+        <div class="feat" id="f1" style="top:170px"><div class="k">Walkbooks</div><div class="h">Guided routes.</div><p>Assigned walkbooks land on the phone with the route drawn and the opening script ready.</p></div>
+        <div class="feat" id="f2" style="top:420px"><div class="k">Surveys</div><div class="h">Scripted conversations.</div><p>Yes/No, multiple choice, rating and text questions. One screen per household member.</p></div>
+        <div class="feat" id="f3" style="top:670px"><div class="k">Door status</div><div class="h">One tap per door.</div><p>Completed, Not Home, Refused, Moved. Each knock is stamped with time and GPS.</p></div>
+      </section>
+
+      <!-- S7 LIVE DASHBOARD -->
+      <section class="scene" id="s7">
+        <div class="abs" style="left:92px;top:34px"><div class="eyebrow">Admin portal · Real time</div><div class="h-lg" id="s7h" style="margin-top:8px;font-size:56px">Watch the field move.</div></div>
+        <div class="browser" id="browser">
+          <div class="chrome"><i></i><i></i><i></i><div class="url">intellibyte.tech/echoreach/dashboard</div></div>
+          <nav class="dside">
+            <div class="bd"><div class="eagle"></div>EchoReach</div>
+            <a class="on"><i></i>Overview</a><a><i></i>Campaign</a><a><i></i>Contacts</a><a><i></i>Walkbooks</a><a><i></i>Analytics</a><a><i></i>Surveys</a><a><i></i>Team</a><a><i></i>Export History</a><a><i></i>Settings</a>
+          </nav>
+          <div class="dmain">
+            <div class="dhead"><h3>Overview</h3><span class="camp">Springfield Forward ▾</span></div>
+            <div class="stats">
+              <div class="st"><div class="blob" style="background:var(--red)"></div><div class="row1"><span class="ico" style="background:rgba(220,38,38,.18);color:var(--red-hi)"><i></i></span><span class="hint"><span id="stActive">0</span> active</span></div><div class="v" id="stTeam">0</div><div class="lb">Team Members</div></div>
+              <div class="st"><div class="blob" style="background:var(--blue)"></div><div class="row1"><span class="ico" style="background:rgba(59,130,246,.18);color:#60a5fa"><i></i></span><span class="hint">+<span id="stToday">0</span> today</span></div><div class="v" id="stDoors">0</div><div class="lb">Doors Knocked</div></div>
+              <div class="st"><div class="blob" style="background:var(--green)"></div><div class="row1"><span class="ico" style="background:rgba(16,185,129,.18);color:var(--green)"><i></i></span><span class="hint"><span id="stRate">0</span>% rate</span></div><div class="v" id="stConv">0</div><div class="lb">Conversations</div></div>
+              <div class="st"><div class="blob" style="background:var(--purple)"></div><div class="row1"><span class="ico" style="background:rgba(147,51,234,.2);color:#c084fc"><i></i></span><span class="hint" id="stHH">0 / 6,140</span></div><div class="v" id="stProg">0%</div><div class="lb">Campaign Progress</div><div class="pb"><i id="stBar"></i></div></div>
+            </div>
+            <div class="lower">
+              <div class="online" id="online">
+                <div class="hd"><b>Online Now</b><span class="live"><i id="liveDot"></i>Live</span></div>
+                <div class="cv"><div class="av" style="background:rgba(220,38,38,.2);color:#fca5a5">ML</div><div><div class="n">Maria Lopez</div><div class="a">Elm St North</div></div><span class="c" id="c1">18</span></div>
+                <div class="cv"><div class="av" style="background:rgba(59,130,246,.2);color:#93c5fd">DK</div><div><div class="n">Devon King</div><div class="a">Oak Ave East</div></div><span class="c" id="c2">24</span></div>
+                <div class="cv"><div class="av" style="background:rgba(245,158,11,.2);color:#fcd34d">PS</div><div><div class="n">Priya Shah</div><div class="a">Cedar Ln Loop</div></div><span class="c" id="c3">31</span></div>
+                <div class="cv"><div class="av" style="background:rgba(16,185,129,.2);color:#6ee7b7">SR</div><div><div class="n">Sam Reyes</div><div class="a">Maple Dr South</div></div><span class="c" id="c4">9</span></div>
+              </div>
+              <div class="livemap" id="livemap">
+                <div class="ttl">Canvasser Activity</div>
+                <svg width="100%" height="100%" viewBox="0 0 796 458" preserveAspectRatio="xMidYMid slice" id="lmap"></svg>
+                <div class="log"><h6>Knock log · GPS verified</h6><div class="rows" id="logRows"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- S8 OUTRO -->
+      <section class="scene" id="s8">
+        <div class="out-lock">
+          <div id="s8lock" style="width:640px"><img class="lockup" src="img/lockup.png" alt="EchoReach"></div>
+          <div class="out-sub" id="s8sub">Admin portal on the web. Field app on iOS and Android.</div>
+          <div class="plats" id="s8plats"><span>Web</span><span>iOS</span><span>Android</span></div>
+        </div>
+        <div class="ribbon" id="s8rib">Contacts<b>/</b>Walkbooks<b>/</b>Surveys<b>/</b>Analytics<b>/</b>Team<b>/</b>Push Notifications<b>/</b>Exports</div>
+      </section>
+
+      <svg class="cursor" id="cursor" viewBox="0 0 24 24" style="left:0;top:0;opacity:0"><path d="M4 2l15 9-6.5 1.6L16 20l-3 1.4-3.3-7.3L4 18z" fill="#fff" stroke="#000" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      <div class="vignette"></div>
+      <div class="grain"></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn play" id="playBtn" aria-label="Pause"><svg viewBox="0 0 24 24" id="playIcon"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
+    <button class="btn" id="replayBtn" aria-label="Replay from start"><svg viewBox="0 0 24 24"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg></button>
+    <div class="scrubwrap"><input type="range" id="scrub" min="0" max="1000" value="0" step="1" aria-label="Seek"><span class="time" id="time">0:00 / 0:47</span></div>
+    <button class="btn" id="fsBtn" aria-label="Fullscreen"><svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4zM14 4h6v6h-2V6h-4zM4 14h2v4h4v2H4zM18 14h2v6h-6v-2h4z"/></svg></button>
+  </div>
+  <div class="chapters" id="chapters"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(function(){
+const NS = "http://www.w3.org/2000/svg";
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const svgEl = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647, (seed - 1) / 2147483646);
+const fmt = n => Math.round(n).toLocaleString('en-US');
+
+/* ---------- stage fit ---------- */
+const viewport = $('#viewport'), stage = $('#stage');
+function fit(){
+  const w = viewport.clientWidth, h = viewport.clientHeight;
+  const s = Math.min(w / 1600, h / 900);
+  stage.style.transform = `translate(${(w - 1600 * s) / 2}px, ${(h - 900 * s) / 2}px) scale(${s})`;
+}
+new ResizeObserver(fit).observe(viewport); fit();
+
+/* ---------- build content: S3 mini map ---------- */
+(function(){
+  const g = $('#s3map');
+  for (let i = 0; i < 6; i++) svgEl('line', {x1:0, y1:30 + i*42, x2:470, y2:30 + i*42, stroke:'#222226', 'stroke-width':6}, g);
+  for (let i = 0; i < 8; i++) svgEl('line', {x1:25 + i*62, y1:0, x2:25 + i*62, y2:250, stroke:'#222226', 'stroke-width':6}, g);
+  for (let i = 0; i < 40; i++) svgEl('circle', {cx: 20 + rnd()*430, cy: 20 + rnd()*210, r:3.2, fill: rnd() < .4 ? '#EF4444' : '#52525b', class:'s3dot'}, g);
+  const pk = $('#s3packets');
+  for (let i = 0; i < 5; i++) svgEl('circle', {r: 6, fill: i % 2 ? '#10B981' : '#EF4444', class:'pk', cx:-20, cy:-20}, pk);
+})();
+
+/* ---------- S4 csv rows (real rows from mock-voter-data.csv) ---------- */
+const ROWS = [
+  ['V001','James','Anderson','123 Main St','Democrat','frequent_voter'],
+  ['V002','Mary','Johnson','456 Oak Ave','Republican','senior'],
+  ['V003','Robert','Williams','789 Pine Rd','Independent','new_voter'],
+  ['V004','Patricia','Brown','321 Elm St','Democrat','volunteer'],
+  ['V005','Michael','Jones','654 Maple Dr','Republican','business_owner'],
+  ['V006','Linda','Garcia','987 Cedar Ln','Democrat','educator'],
+  ['V007','William','Martinez','147 Birch Way','Independent','veteran'],
+  ['V010','Richard','Wilson','369 Willow St','Republican','farmer'],
+  ['V013','Thomas','Moore','159 Hickory Rd','Republican','retiree'],
+];
+const csv = $('#csv');
+ROWS.forEach(r => { const d = document.createElement('div'); d.className = 'row data'; d.innerHTML = r.map((v,i)=>`<span class="${i===5?'tag':''}">${v}</span>`).join(''); csv.appendChild(d); });
+
+/* ---------- shared big map (S4 → S5) ---------- */
+const HST = [[80,'Hickory Rd'],[190,'Elm St'],[310,'Oak Ave'],[430,'Maple Dr']];
+const VST = [[90,'Cedar Ln'],[235,'Birch Way'],[380,'Spruce Ct'],[520,'Willow St']];
+const LASSO = {cx:318, cy:250, rx:112, ry:96};
+const dots = [];
+(function(){
+  const g = $('#bmStreets');
+  svgEl('rect', {x:0,y:0,width:620,height:560,fill:'#101012'}, g);
+  svgEl('path', {d:'M410,330 C470,320 520,350 560,340 L600,520 L420,540 Z', fill:'#0f1a14'}, g); // park
+  HST.forEach(([y]) => svgEl('line', {x1:0,y1:y,x2:620,y2:y,stroke:'#232327','stroke-width':12}, g));
+  VST.forEach(([x]) => svgEl('line', {x1:x,y1:0,x2:x,y2:560,stroke:'#232327','stroke-width':12}, g));
+  HST.forEach(([y,n]) => { const t = svgEl('text', {x:14 + (y%3)*140 + 20, y:y+4, fill:'#71717a','font-size':10,'font-family':'Geist Mono, monospace','letter-spacing':'1'}, g); t.textContent = n.toUpperCase(); });
+  VST.forEach(([x,n]) => { const t = svgEl('text', {x:x+4, y:530, fill:'#71717a','font-size':10,'font-family':'Geist Mono, monospace','letter-spacing':'1', transform:`rotate(-90 ${x+4} 530)`}, g); t.textContent = n.toUpperCase(); });
+  const dg = $('#bmDots');
+  const tags = ['veteran','frequent_voter','new_voter','parent','educator'];
+  const add = (x,y) => {
+    const senior = rnd() < .36;
+    const inL = ((x-LASSO.cx)/LASSO.rx)**2 + ((y-LASSO.cy)/LASSO.ry)**2 < 1;
+    const el = svgEl('circle', {cx:x, cy:y, r:4.2, fill:'#d4d4d8'}, dg);
+    dots.push({el, x, y, senior, inL, tag: senior ? 'senior' : tags[Math.floor(rnd()*tags.length)]});
+  };
+  HST.forEach(([y]) => { for (let x = 16; x < 610; x += 23) { if (VST.some(([vx]) => Math.abs(x-vx) < 16)) continue; if (rnd() < .5) add(x + rnd()*4, y - 14); if (rnd() < .5) add(x + rnd()*4, y + 14); } });
+  VST.forEach(([x]) => { for (let y = 20; y < 548; y += 25) { if (HST.some(([hy]) => Math.abs(y-hy) < 18)) continue; if (rnd() < .45) add(x - 14, y + rnd()*4); if (rnd() < .45) add(x + 14, y + rnd()*4); } });
+  // lasso path around the ellipse, slightly hand-drawn
+  let d = '';
+  for (let i = 0; i <= 48; i++) { const a = i/48*Math.PI*2 - Math.PI/2; const w = 1 + Math.sin(a*3)*.05; d += (i ? 'L' : 'M') + (LASSO.cx + Math.cos(a)*LASSO.rx*w).toFixed(1) + ',' + (LASSO.cy + Math.sin(a)*LASSO.ry*w).toFixed(1); }
+  $('#lasso').setAttribute('d', d + 'Z');
+})();
+const picked = dots.filter(d => d.senior && d.inL);
+
+/* ---------- S6 phone maps ---------- */
+const routePts = [[30,210],[30,150],[120,150],[120,70],[220,70],[220,150],[306,150],[306,40]];
+(function(){
+  const g = $('#pAmap');
+  [40,70,150,210].forEach(y => svgEl('line', {x1:0,y1:y,x2:336,y2:y,stroke:'#1f1f23','stroke-width':9}, g));
+  [30,120,220,306].forEach(x => svgEl('line', {x1:x,y1:0,x2:x,y2:236,stroke:'#1f1f23','stroke-width':9}, g));
+  svgEl('path', {id:'route', d:'M' + routePts.map(p=>p.join(',')).join(' L'), fill:'none', stroke:'#EF4444','stroke-width':4,'stroke-linecap':'round','stroke-linejoin':'round', pathLength:1,'stroke-dasharray':'1 1','stroke-dashoffset':1}, g);
+  [[30,180],[75,150],[120,110],[170,70],[220,110],[262,150],[306,95],[306,50]].forEach((p,i) => svgEl('circle', {cx:p[0],cy:p[1],r:6.5,fill: i < 3 ? '#10B981' : '#71717a', stroke:'#0a0a0a','stroke-width':2, class:'rpin'}, g));
+  svgEl('circle', {id:'meHalo', cx:30, cy:210, r:14, fill:'rgba(59,130,246,.25)'}, g);
+  svgEl('circle', {id:'me', cx:30, cy:210, r:7, fill:'#3B82F6', stroke:'#fff','stroke-width':2.5}, g);
+})();
+const pCpins = [];
+(function(){
+  const g = $('#pCmap');
+  svgEl('rect', {x:0,y:0,width:376,height:804,fill:'#0f0f11'}, g);
+  [200,320,440,560].forEach(y => svgEl('line', {x1:0,y1:y,x2:376,y2:y,stroke:'#1f1f23','stroke-width':12}, g));
+  [60,190,320].forEach(x => svgEl('line', {x1:x,y1:0,x2:x,y2:804,stroke:'#1f1f23','stroke-width':12}, g));
+  const t = svgEl('text', {x:200,y:196,fill:'#52525b','font-size':10,'font-family':'Geist Mono, monospace','letter-spacing':'1'}, g); t.textContent = 'ELM ST';
+  const P = [[40,230],[80,230],[120,180],[160,180],[210,230],[250,290],[290,300],[340,260],[80,340],[140,340],[210,420],[250,460],[300,420],[40,480],[160,480],[120,540]];
+  P.forEach(p => pCpins.push(svgEl('circle', {cx:p[0],cy:p[1],r:9,fill:'#71717a',stroke:'#0a0a0a','stroke-width':2.5}, g)));
+  svgEl('circle', {id:'patRing', cx:160, cy:180, r:18, fill:'none', stroke:'#fff','stroke-width':2, opacity:0}, g);
+})();
+
+/* ---------- S7 live map ---------- */
+const LPATHS = [
+  {d:'M60,420 L60,300 L220,300 L220,150 L380,150', c:'#EF4444'},
+  {d:'M740,400 L560,400 L560,260 L700,260 L700,110', c:'#3B82F6'},
+  {d:'M300,60 L300,210 L470,210 L470,340 L380,340', c:'#F59E0B'},
+];
+(function(){
+  const g = $('#lmap');
+  [60,150,210,300,340,400].forEach(y => svgEl('line', {x1:0,y1:y,x2:796,y2:y,stroke:'#1c1c20','stroke-width':10}, g));
+  [60,220,300,380,470,560,700].forEach(x => svgEl('line', {x1:x,y1:0,x2:x,y2:458,stroke:'#1c1c20','stroke-width':10}, g));
+  for (let i = 0; i < 90; i++) svgEl('circle', {cx:10 + rnd()*776, cy:10 + rnd()*440, r:2.6, fill:'#3f3f46'}, g);
+  LPATHS.forEach((p,i) => {
+    p.trail = svgEl('path', {d:p.d, fill:'none', stroke:p.c, 'stroke-width':4, 'stroke-linecap':'round','stroke-linejoin':'round', opacity:.55, pathLength:1, 'stroke-dasharray':'1 1', 'stroke-dashoffset':1}, g);
+    p.len = p.trail.getTotalLength();
+    p.houses = [];
+    for (let k = 1; k <= 7; k++) { const f = k/8; const pt = p.trail.getPointAtLength(f*p.len); p.houses.push({f, el: svgEl('circle', {cx:pt.x+(k%2?11:-11), cy:pt.y+(k%2?-9:9), r:5, fill:'#52525b', stroke:'#101012','stroke-width':2}, g)}); }
+    p.halo = svgEl('circle', {r:16, fill:p.c, opacity:.22}, g);
+    p.dot = svgEl('circle', {r:7.5, fill:p.c, stroke:'#fff','stroke-width':2.5}, g);
+    const s = p.trail.getPointAtLength(0); [p.halo,p.dot].forEach(e => { e.setAttribute('cx', s.x); e.setAttribute('cy', s.y); });
+  });
+})();
+const LOG = [
+  ['10:41:52','159 Hickory Rd','Completed','var(--green)'],
+  ['10:42:07','321 Elm St','Not Home','var(--amber)'],
+  ['10:42:31','654 Maple Dr','Completed','var(--green)'],
+  ['10:42:58','147 Birch Way','Refused','var(--red-hi)'],
+  ['10:43:14','987 Cedar Ln','Completed','var(--green)'],
+  ['10:43:40','369 Willow St','Completed','var(--green)'],
+];
+const logRows = $('#logRows');
+const logEls = LOG.map(([t,a,s,c]) => { const e = document.createElement('div'); e.className = 'e'; e.style.opacity = 0; e.innerHTML = `<span class="t">${t}</span><span><span style="color:${c};font-weight:600">${s}</span> · ${a}</span><span class="gps">GPS ✓</span>`; logRows.appendChild(e); return e; });
+
+/* ---------- ripple canvas, driven by timeline time ---------- */
+const rc = $('#ripples').getContext('2d');
+const SHIFT = 7.1;
+const RIPPLE = [];
+function drawRipples(t){
+  rc.clearRect(0,0,1600,900);
+  for (const R of RIPPLE) {
+    if (t < R.from || t > R.to + 3) continue;
+    const fade = Math.min(1, (t - R.from) / .4) * Math.max(0, Math.min(1, (R.to + .2 - t) / .6));
+    if (fade <= 0) continue;
+    for (let k = 0; ; k++) {
+      const born = R.from + k * R.period; if (born > t) break;
+      const age = t - born, life = 3.2; if (age > life) continue;
+      const r = 12 + age * 230, a = Math.pow(1 - age / life, 2) * .55 * fade;
+      rc.beginPath(); rc.arc(R.x, R.y, r, 0, Math.PI*2);
+      rc.strokeStyle = `rgba(239,68,68,${a})`; rc.lineWidth = 2; rc.stroke();
+    }
+  }
+}
+
+/* ---------- TIMELINE ---------- */
+const CH = [
+  {t:0, name:'Intro'}, {t:3.2, name:'Platform'}, {t:8.7, name:'Import'},
+  {t:14.7, name:'Walkbooks'}, {t:21.7, name:'Field app'}, {t:33.2, name:'Live'}, {t:41.2, name:'Close'},
+];
+const tl = gsap.timeline({paused:true, defaults:{ease:'power3.out'}, onUpdate: onTick});
+const IN = (sel, t, extra={}) => tl.fromTo(sel, {autoAlpha:0, scale:1.035}, {autoAlpha:1, scale:1, duration:.7, ease:'power2.out', ...extra}, t);
+const OUT = (sel, t) => tl.to(sel, {autoAlpha:0, scale:.97, duration:.5, ease:'power2.in'}, t);
+const COUNT = (el, from, to, t, dur, f = fmt, ease = 'power2.out') => { const o = {v:from}; el.textContent = f(from); tl.to(o, {v:to, duration:dur, ease, onUpdate:() => el.textContent = f(o.v)}, t); };
+const TYPE = (el, str, t, dur) => { const o = {n:0}; el.textContent = ''; tl.to(o, {n:str.length, duration:dur, ease:'none', onUpdate:() => el.textContent = str.slice(0, Math.round(o.n))}, t); };
+const moveCursor = (x, y, t, dur=.6) => tl.to('#cursor', {x, y, duration:dur, ease:'power2.inOut'}, t);
+const FLIP = (t, apply) => { const o = {v:0}; apply(false); tl.to(o, {v:1, duration:.001, onUpdate:() => apply(o.v >= 1)}, t); };
+const click = (x, y, t) => { tl.fromTo('#cursor', {scale:1}, {scale:.8, duration:.08, yoyo:true, repeat:1, ease:'none'}, t); };
+
+// S1 logo snip (quick)
+IN('#s1', 0, {duration:.2});
+tl.fromTo('#introLock', {clipPath:'inset(0% 100% 0% 0%)', scale:1.08, filter:'blur(10px)'},
+  {clipPath:'inset(0% 0% 0% 0%)', scale:1, filter:'blur(0px)', duration:1, ease:'expo.out'}, .15);
+tl.fromTo('#introSweep', {x:0, opacity:1}, {x:900, duration:1, ease:'expo.out'}, .15);
+tl.to('#introSweep', {opacity:0, duration:.3}, .9);
+tl.to('#introLock', {scale:.92, autoAlpha:0, filter:'blur(6px)', duration:.45, ease:'power3.in'}, 2.55);
+tl.set('#s1', {autoAlpha:0}, 3.05);
+
+// S3 platform (authored at 10.3s; shifted to 3.2s below)
+IN('#s3', 10.3);
+tl.fromTo('#s3eb, #s3h', {autoAlpha:0, y:30}, {autoAlpha:1, y:0, duration:.8, stagger:.1, ease:'expo.out'}, 10.4);
+tl.fromTo('#s3sub', {autoAlpha:0, y:20}, {autoAlpha:1, y:0, duration:.7}, 10.8);
+tl.fromTo('#s3lap', {x:-160, autoAlpha:0, rotateY:18, transformPerspective:1400}, {x:0, autoAlpha:1, rotateY:0, duration:1.1, ease:'expo.out'}, 10.6);
+tl.fromTo('#s3ph', {x:160, autoAlpha:0, rotate:8}, {x:0, autoAlpha:1, rotate:0, duration:1.1, ease:'expo.out'}, 10.75);
+tl.fromTo('.dev-label', {autoAlpha:0, y:14}, {autoAlpha:1, y:0, duration:.6, stagger:.12}, 11.4);
+tl.fromTo('.s3dot', {scale:0, transformOrigin:'center'}, {scale:1, duration:.4, stagger:{each:.02, from:'random'}, ease:'back.out(3)'}, 11.3);
+tl.fromTo('#s3plist > *', {autoAlpha:0, x:20}, {autoAlpha:1, x:0, duration:.4, stagger:.07}, 11.5);
+tl.fromTo('#s3path', {attr:{'stroke-dashoffset':200}}, {attr:{'stroke-dashoffset':0}, duration:4.5, ease:'none'}, 11.5);
+(function(){
+  const path = $('#s3path'), L = path.getTotalLength(), pk = $$('.pk'), o = {p:0};
+  tl.fromTo('#s3packets', {autoAlpha:0}, {autoAlpha:1, duration:.3}, 11.8);
+  tl.to(o, {p:1, duration:3.9, ease:'none', onUpdate(){
+    pk.forEach((c, i) => { let f = (o.p * 2.2 + i / pk.length) % 1; if (i % 2) f = 1 - f; const pt = path.getPointAtLength(f * L); c.setAttribute('cx', pt.x); c.setAttribute('cy', pt.y); });
+  }}, 11.8);
+})();
+OUT('#s3', 15.6);
+
+// S4 import
+IN('#s4', 15.8);
+tl.fromTo('#s4h, #s4sub', {autoAlpha:0, y:24}, {autoAlpha:1, y:0, duration:.7, stagger:.1, ease:'expo.out'}, 15.9);
+tl.fromTo('#csv', {autoAlpha:0, y:40}, {autoAlpha:1, y:0, duration:.7}, 16.1);
+tl.fromTo('#csv .row.data', {autoAlpha:0, x:-30}, {autoAlpha:1, x:0, duration:.35, stagger:.1}, 16.4);
+tl.fromTo('#mapwrap', {autoAlpha:0, x:40}, {autoAlpha:1, x:0, duration:.8, ease:'expo.out'}, 16.3);
+tl.fromTo('#bmStreets', {autoAlpha:0}, {autoAlpha:1, duration:.8}, 16.5);
+tl.fromTo('#csv .row.data', {backgroundColor:'rgba(220,38,38,0)'}, {backgroundColor:'rgba(220,38,38,.16)', duration:.15, stagger:.12, yoyo:true, repeat:1, ease:'none'}, 17.6);
+dots.forEach((d, i) => {
+  const fromX = -60 - rnd()*40, fromY = 210 + (i % 9) * 33;
+  tl.fromTo(d.el, {attr:{cx:fromX, cy:fromY, r:2}, opacity:0}, {attr:{cx:d.x, cy:d.y, r:4.2}, opacity:1, duration:.9, ease:'power3.inOut'}, 17.6 + (i / dots.length) * 2.2);
+});
+COUNT($('#cnt'), 0, 400, 17.6, 3, fmt, 'power1.inOut');
+FLIP(20.6, on => $('#csvpill').textContent = on ? '400 imported' : 'Importing…');
+OUT('#s4', 21.6);
+
+// S5 walkbooks — map glides to the left and scales up
+tl.to('#mapwrap', {x:-780, y:-10, scale:1.2, duration:1.2, ease:'expo.inOut'}, 21.6);
+IN('#s5', 21.9);
+tl.fromTo('#s5h', {autoAlpha:0, y:24}, {autoAlpha:1, y:0, duration:.7, ease:'expo.out'}, 22.1);
+tl.fromTo('#s5tags', {autoAlpha:0, x:40}, {autoAlpha:1, x:0, duration:.7, ease:'expo.out'}, 22.3);
+tl.fromTo('#cursor', {x:1250, y:720, autoAlpha:0}, {autoAlpha:1, duration:.3}, 22.6);
+moveCursor(930, 302, 22.7, .7);
+click(930, 302, 23.4);
+FLIP(23.45, on => $('#chipSenior').classList.toggle('on', on));
+dots.forEach(d => { if (!d.senior) tl.to(d.el, {opacity:.14, duration:.4, ease:'none'}, 23.5); else tl.to(d.el, {attr:{fill:'#fafafa'}, duration:.3}, 23.5); });
+// cursor lassos (map is at stage x=100,y=180 scaled 1.2)
+const MX = 100, MY = 180, MS = 1.2;
+moveCursor(MX + LASSO.cx*MS, MY + (LASSO.cy - LASSO.ry)*MS, 23.8, .5);
+(function(){
+  const o = {a:0};
+  tl.to(o, {a:1, duration:1.3, ease:'power1.inOut', onUpdate(){
+    const a = o.a*Math.PI*2 - Math.PI/2, w = 1 + Math.sin(a*3)*.05;
+    gsap.set('#cursor', {x: MX + (LASSO.cx + Math.cos(a)*LASSO.rx*w)*MS, y: MY + (LASSO.cy + Math.sin(a)*LASSO.ry*w)*MS});
+  }}, 24.3);
+})();
+tl.fromTo('#lasso', {attr:{'stroke-dashoffset':1, 'fill-opacity':0}}, {attr:{'stroke-dashoffset':0}, duration:1.3, ease:'power1.inOut'}, 24.3);
+tl.to('#lasso', {attr:{'fill-opacity':1}, duration:.4}, 25.5);
+picked.forEach((d, i) => tl.to(d.el, {attr:{fill:'#EF4444', r:6}, duration:.35, ease:'back.out(3)'}, 25.6 + i * .025));
+tl.fromTo('#s5card', {autoAlpha:0, y:40}, {autoAlpha:1, y:0, duration:.7, ease:'expo.out'}, 25.7);
+COUNT($('#wbHH'), 0, picked.length, 25.8, 1);
+COUNT($('#wbCt'), 0, Math.round(picked.length * 1.4), 25.8, 1);
+moveCursor(1400, 700, 26.4, .6);
+click(1400, 700, 27.05);
+tl.to('#wbAssign', {borderColor:'#10B981', borderStyle:'solid', backgroundColor:'rgba(16,185,129,.06)', duration:.3}, 27.1);
+tl.fromTo('#wbAssigned', {autoAlpha:0, scale:.6}, {autoAlpha:1, scale:1, duration:.4, ease:'back.out(3)'}, 27.1);
+FLIP(27.1, on => { const b = $('#wbBadge'); b.textContent = on ? 'Assigned' : 'Unassigned'; b.className = 'badge ' + (on ? 'green' : 'zinc'); });
+tl.to('#cursor', {autoAlpha:0, duration:.3}, 28.2);
+OUT('#s5', 28.5);
+tl.to('#mapwrap', {autoAlpha:0, scale:1.1, duration:.5, ease:'power2.in'}, 28.5);
+
+// S6 field app
+IN('#s6', 28.8);
+tl.fromTo('#s6phone', {y:260, rotate:-6, autoAlpha:0}, {y:0, rotate:0, autoAlpha:1, duration:1.1, ease:'expo.out'}, 28.8);
+const featIn = (s, t) => tl.fromTo(s, {autoAlpha:0, x:40}, {autoAlpha:1, x:0, duration:.7, ease:'expo.out'}, t);
+const featDim = (s, t) => tl.to(s, {opacity:.22, duration:.5}, t);
+featIn('#f1', 29.2);
+tl.fromTo('#pA .prog, #pA .pmap, #pA .hh', {autoAlpha:0, y:20}, {autoAlpha:1, y:0, duration:.5, stagger:.08}, 29.4);
+tl.fromTo('#route', {attr:{'stroke-dashoffset':1}}, {attr:{'stroke-dashoffset':0}, duration:2, ease:'power1.inOut'}, 30);
+(function(){
+  const r = $('#route'), L = r.getTotalLength(), o = {p:0};
+  tl.to(o, {p:.28, duration:1.8, ease:'power1.inOut', onUpdate(){ const pt = r.getPointAtLength(o.p*L); ['#me','#meHalo'].forEach(s => { const e = $(s); e.setAttribute('cx', pt.x); e.setAttribute('cy', pt.y); }); }}, 30.3);
+})();
+tl.fromTo('#meHalo', {attr:{r:8}}, {attr:{r:18}, duration:.8, repeat:3, yoyo:true, ease:'sine.inOut'}, 30);
+// tap Mary → survey
+tl.fromTo('#tap', {left:'305px', top:'543px', scale:.4, autoAlpha:0}, {scale:1.3, autoAlpha:.9, duration:.3}, 32.1);
+tl.to('#tap', {autoAlpha:0, duration:.25}, 32.4);
+tl.to('#hhMary', {backgroundColor:'#27272a', duration:.15, yoyo:true, repeat:1}, 32.1);
+tl.to('#pA', {xPercent:-30, autoAlpha:0, duration:.45, ease:'power2.in'}, 32.45);
+tl.fromTo('#pB', {xPercent:40, autoAlpha:0}, {xPercent:0, autoAlpha:1, duration:.55, ease:'expo.out'}, 32.6);
+featDim('#f1', 32.4); featIn('#f2', 32.5);
+TYPE($('#scriptTxt'), "Hi, my name is Maria and I'm a volunteer with Springfield Forward. Do you have a minute to talk about what matters to you?", 32.9, 1.8);
+tl.fromTo('#caret', {opacity:1}, {opacity:0, duration:.35, repeat:9, yoyo:true, ease:'steps(1)'}, 32.9);
+tl.fromTo('#q1, #q2, #q3', {autoAlpha:0, y:16}, {autoAlpha:1, y:0, duration:.4, stagger:.1}, 33.0);
+tl.to('#ynYes', {backgroundColor:'rgba(16,185,129,.18)', borderColor:'#10B981', color:'#6ee7b7', duration:.2}, 34.4);
+tl.fromTo('#tap', {left:'112px', top:'351px', scale:.4, autoAlpha:0}, {scale:1.2, autoAlpha:.9, duration:.25, immediateRender:false}, 34.35);
+tl.to('#tap', {autoAlpha:0, duration:.2}, 34.6);
+$$('#rate span').forEach((s, i) => { if (i < 4) tl.to(s, {backgroundColor:'rgba(220,38,38,.22)', borderColor:'#DC2626', color:'#fff', duration:.15}, 35 + i * .12); });
+TYPE($('#noteTxt'), 'Concerned about healthcare costs', 35.6, 1);
+tl.to('#submitBtn', {scale:.95, duration:.1, yoyo:true, repeat:1}, 36.8);
+tl.fromTo('#toast', {autoAlpha:0, y:20}, {autoAlpha:1, y:0, duration:.4, ease:'back.out(2)'}, 36.95);
+tl.to('#pB', {xPercent:-30, autoAlpha:0, duration:.45, ease:'power2.in'}, 37.7);
+tl.fromTo('#pC', {xPercent:40, autoAlpha:0}, {xPercent:0, autoAlpha:1, duration:.55, ease:'expo.out'}, 37.85);
+featDim('#f2', 37.7); featIn('#f3', 37.8);
+tl.fromTo('#sheet', {yPercent:100}, {yPercent:0, duration:.6, ease:'expo.out'}, 38.1);
+tl.fromTo('#patRing', {attr:{opacity:0, r:10}}, {attr:{opacity:1, r:18}, duration:.4}, 38.2);
+const STAT = ['#10B981','#10B981','#F59E0B','#10B981','#EF4444','#10B981','#a78bfa','#10B981','#F59E0B','#10B981','#10B981','#EF4444','#10B981','#F59E0B','#10B981','#10B981'];
+pCpins.forEach((p, i) => tl.to(p, {attr:{fill:STAT[i], r:11}, duration:.25, ease:'back.out(3)'}, 38.3 + i * .09));
+tl.to('#sgDone', {backgroundColor:'rgba(16,185,129,.18)', borderColor:'#10B981', color:'#6ee7b7', duration:.2}, 39.4);
+OUT('#s6', 40.1);
+
+// S7 live dashboard
+IN('#s7', 40.3);
+tl.fromTo('#s7h', {autoAlpha:0, y:20}, {autoAlpha:1, y:0, duration:.7, ease:'expo.out'}, 40.4);
+tl.fromTo('#browser', {y:120, autoAlpha:0, rotateX:12, transformPerspective:1800}, {y:0, autoAlpha:1, rotateX:0, duration:1.1, ease:'expo.out'}, 40.4);
+tl.fromTo('.st', {autoAlpha:0, y:20}, {autoAlpha:1, y:0, duration:.5, stagger:.08}, 41);
+COUNT($('#stTeam'), 0, 24, 41.1, 1.2);
+COUNT($('#stActive'), 0, 18, 41.1, 1.2);
+COUNT($('#stDoors'), 0, 3600, 41.1, 1.4);
+COUNT($('#stToday'), 0, 188, 41.1, 1.4);
+COUNT($('#stConv'), 0, 1380, 41.1, 1.4);
+COUNT($('#stRate'), 0, 38, 41.1, 1.4);
+(function(){
+  const o = {p:0};
+  tl.to(o, {p:61, duration:1.6, onUpdate(){ $('#stProg').textContent = Math.round(o.p) + '%'; $('#stBar').style.width = o.p + '%'; $('#stHH').textContent = fmt(o.p/100*6140) + ' / 6,140'; }}, 41.1);
+})();
+tl.fromTo('.cv', {autoAlpha:0, x:-20}, {autoAlpha:1, x:0, duration:.4, stagger:.1}, 41.3);
+tl.fromTo('#liveDot', {opacity:1}, {opacity:.25, duration:.5, repeat:12, yoyo:true, ease:'sine.inOut'}, 41.3);
+tl.fromTo('#livemap', {autoAlpha:0}, {autoAlpha:1, duration:.6}, 41.3);
+(function(){
+  const o = {p:0};
+  tl.to(o, {p:1, duration:5.8, ease:'none', onUpdate(){
+    LPATHS.forEach((P, i) => {
+      const f = Math.min(1, o.p * (1 - i*.08));
+      const pt = P.trail.getPointAtLength(f * P.len);
+      P.dot.setAttribute('cx', pt.x); P.dot.setAttribute('cy', pt.y);
+      P.halo.setAttribute('cx', pt.x); P.halo.setAttribute('cy', pt.y);
+      P.halo.setAttribute('r', 13 + Math.sin(o.p*40 + i)*5);
+      P.trail.setAttribute('stroke-dashoffset', 1 - f);
+      P.houses.forEach(h => h.el.setAttribute('fill', f >= h.f ? (i === 1 && h.f === 3/8 ? '#F59E0B' : '#10B981') : '#52525b'));
+    });
+  }}, 41.6);
+})();
+LOG.forEach((_, i) => {
+  const t = 42.2 + i * .85;
+  tl.fromTo(logEls[i], {opacity:0, y:-12}, {opacity:1, y:0, duration:.35, immediateRender:false}, t);
+  for (let j = 0; j < i; j++) tl.to(logEls[j], {y:(i-j)*42, opacity: i-j >= 4 ? 0 : 1, duration:.35}, t);
+});
+COUNT($('#stDoors'), 3600, 3812, 42.4, 5, fmt, 'none');
+COUNT($('#stToday'), 188, 212, 42.4, 5, fmt, 'none');
+COUNT($('#stConv'), 1380, 1466, 42.4, 5, fmt, 'none');
+COUNT($('#c1'), 18, 23, 42.4, 5, fmt, 'none');
+COUNT($('#c2'), 24, 28, 42.4, 5, fmt, 'none');
+COUNT($('#c3'), 31, 36, 42.4, 5, fmt, 'none');
+['#stDoors','#stToday','#stConv'].forEach(s => $(s).textContent = '0');
+['#c1','#c2','#c3'].forEach((s, i) => $(s).textContent = [18,24,31][i]);
+OUT('#s7', 48.1);
+
+// S8 outro
+IN('#s8', 48.3, {duration:.3});
+tl.fromTo('#s8lock', {autoAlpha:0, scale:.85, clipPath:'inset(0% 100% 0% 0%)'}, {autoAlpha:1, scale:1, clipPath:'inset(0% 0% 0% 0%)', duration:1.2, ease:'expo.out'}, 48.5);
+tl.fromTo('#s8sub', {autoAlpha:0, y:16}, {autoAlpha:1, y:0, duration:.7}, 49.6);
+tl.fromTo('#s8plats span', {autoAlpha:0, y:12}, {autoAlpha:1, y:0, duration:.5, stagger:.1}, 50);
+tl.fromTo('#s8rib', {autoAlpha:0}, {autoAlpha:1, duration:1}, 50.6);
+tl.shiftChildren(-SHIFT, false, 10.2);
+tl.to({}, {duration:3.4}, 51 - SHIFT);   // hold on the end card
+const DUR = tl.duration();
+
+/* ---------- controls ---------- */
+const scrub = $('#scrub'), timeEl = $('#time'), playBtn = $('#playBtn'), playIcon = $('#playIcon');
+const mmss = s => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+$('#durLabel').textContent = mmss(DUR);
+const chapWrap = $('#chapters');
+const chapBtns = CH.map((c, i) => { const b = document.createElement('button'); b.className = 'chap'; b.innerHTML = `<span>${mmss(c.t)}</span><b>${c.name}</b>`; b.addEventListener('click', () => { tl.seek(c.t + .01); }); chapWrap.appendChild(b); return b; });
+let dragging = false;
+function onTick(){
+  const t = tl.time();
+  drawRipples(t);
+  if (!dragging) scrub.value = Math.round(t / DUR * 1000);
+  scrub.style.setProperty('--p', (t / DUR * 100) + '%');
+  timeEl.textContent = mmss(t) + ' / ' + mmss(DUR);
+  let cur = 0; CH.forEach((c, i) => { if (t >= c.t) cur = i; });
+  chapBtns.forEach((b, i) => b.classList.toggle('on', i === cur));
+}
+function setPlaying(on){
+  document.querySelector('.page').classList.toggle('paused', !on);
+  playBtn.setAttribute('aria-label', on ? 'Pause' : 'Play');
+  playIcon.innerHTML = on ? '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>' : '<path d="M7 4.5v15l13-7.5z"/>';
+}
+tl.eventCallback('onComplete', () => tl.restart());   // loop: the end card holds 3.4s, then it starts over
+function toggle(){ if (tl.isActive()) { tl.pause(); setPlaying(false); } else { if (tl.progress() >= 1) tl.restart(); else tl.play(); setPlaying(true); } }
+playBtn.addEventListener('click', toggle);
+$('#replayBtn').addEventListener('click', () => { tl.restart(); setPlaying(true); });
+scrub.addEventListener('input', () => { dragging = true; tl.seek(scrub.value / 1000 * DUR, false); });
+scrub.addEventListener('change', () => { dragging = false; });
+$('#fsBtn').addEventListener('click', () => { const req = viewport.requestFullscreen || viewport.webkitRequestFullscreen; if (document.fullscreenElement) document.exitFullscreen().catch(()=>{}); else if (req) Promise.resolve(req.call(viewport)).catch(()=>{}); });
+document.addEventListener('keydown', e => {
+  if (e.target.closest && e.target.closest('input,button')) return;
+  if (e.code === 'Space') { e.preventDefault(); toggle(); }
+  if (e.code === 'ArrowRight') tl.seek(Math.min(DUR, tl.time() + 3));
+  if (e.code === 'ArrowLeft') tl.seek(Math.max(0, tl.time() - 3));
+});
+
+/* ---------- start ---------- */
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+Promise.all([document.fonts ? document.fonts.ready : Promise.resolve()]).then(() => {
+  if (reduce) { tl.seek(DUR); setPlaying(false); }
+  else { tl.play(0); setPlaying(true); }
+  onTick();
+});
+})();
+</script>
+</body>
+</html>

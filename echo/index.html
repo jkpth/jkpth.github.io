@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1C7CCE40WL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-1C7CCE40WL');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0c0c0c">
+    <meta name="description" content="EchoReach: a political canvassing platform with a Next.js admin portal and a Flutter field app, built by Jacob Thompson.">
+    <meta property="og:site_name" content="Jacob Thompson">
+    <meta property="og:title" content="EchoReach · Jacob Thompson">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Canvassing platform: Next.js admin portal, Flutter field app, Supabase backend.">
+    <meta property="og:image" content="https://jpt.bio/echo/img/lockup.png">
+    <meta property="og:url" content="https://jpt.bio/echo/">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://jpt.bio/echo/">
+    <link rel="icon" href="img/eagle.png">
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="echo.css">
+    <title>EchoReach · Jacob Thompson</title>
+</head>
+<body>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <div class="ps-window wide">
+        <div class="titlebar">
+            <div class="tabs">
+                <a class="tab is-back" href="/">
+                    <span class="ps-icon" aria-hidden="true"></span>
+                    jpt.bio
+                </a>
+                <span class="tab is-open">
+                    <span class="ps-icon" aria-hidden="true"></span>
+                    echo
+                </span>
+                <span class="new-tab" aria-hidden="true">+</span>
+            </div>
+            <div class="win-controls" aria-hidden="true">
+                <span class="min"></span>
+                <span class="max"></span>
+                <span class="close"></span>
+            </div>
+        </div>
+
+        <main id="content" class="console">
+            <p class="prompt"><span class="ps">PS</span> C:\Users\jptho\projects&gt; <span class="cmd">Get-Project</span> echoreach</p>
+
+            <article class="output">
+                <h1>EchoReach</h1>
+                <p class="comment"># canvassing platform for political campaigns.</p>
+                <p class="comment"># web admin portal + mobile field app.</p>
+
+                <figure class="promo">
+                    <iframe src="promo.html" title="EchoReach promo animation" allow="fullscreen" allowfullscreen loading="eager"></iframe>
+                </figure>
+
+                <dl class="facts">
+                    <div><dt>role</dt><dd>part of a two-person team: design, web, mobile, backend</dd></div>
+                    <div><dt>web</dt><dd><span class="str">Next.js 15</span>, React 19, TanStack Query, Mapbox GL</dd></div>
+                    <div><dt>mobile</dt><dd><span class="str">Flutter</span> (iOS + Android), flutter_map, Firebase Messaging</dd></div>
+                    <div><dt>backend</dt><dd><span class="str">Supabase</span>: Postgres, auth, row-level security, realtime, edge functions</dd></div>
+                    <div><dt>repo</dt><dd>Turborepo monorepo · 260+ commits since Nov 2025</dd></div>
+                </dl>
+
+                <h2 id="overview"><span class="kw">overview</span></h2>
+                <p>Door-to-door canvassing still runs on printed lists and clipboards. Campaign staff hand out turf, volunteers mark results in pen, and someone types it all back in days later. Nobody can tell whether a door was actually knocked.</p>
+                <p>EchoReach replaces that loop. Campaign staff import a voter file, cut it into walkbooks on a map and assign them to canvassers. Canvassers work the route on their phone, run the survey at each door and log the result. Every knock is saved with a timestamp and GPS location, and shows up on the admin dashboard right away.</p>
+
+                <h2 id="web"><span class="kw">admin portal</span> <span class="comment"># web</span></h2>
+                <p>The portal is where a campaign is set up and watched. It covers contacts, walkbooks, surveys, the team, analytics and exports, with role-based access for owners, managers, field directors and data coordinators.</p>
+
+                <div class="shots web">
+                    <figure class="shot wide-shot">
+                        <img src="shots/web-walkbook-new.webp" alt="Walkbook builder: a lasso drawn on the map selects 257 households, shown in green" width="1800" height="1375" loading="lazy">
+                        <figcaption><span class="fn">New walkbook</span> # lasso households on the map, filter by tag</figcaption>
+                    </figure>
+                    <figure class="shot">
+                        <img src="shots/web-dashboard.webp" alt="Overview dashboard with team members, doors knocked, conversations, campaign progress and who is online" width="1800" height="1125" loading="lazy">
+                        <figcaption><span class="fn">Overview</span> # live stats, online canvassers, recent activity</figcaption>
+                    </figure>
+                    <figure class="shot">
+                        <img src="shots/web-walkbook-detail.webp" alt="Walkbook detail with progress, estimated time, assigned canvasser and a numbered household map" width="1800" height="1375" loading="lazy">
+                        <figcaption><span class="fn">Walkbook</span> # progress, assignment, CSV/JSON export</figcaption>
+                    </figure>
+                </div>
+
+                <h2 id="mobile"><span class="kw">field app</span> <span class="comment"># iOS + Android</span></h2>
+                <p>The field app is built for someone standing on a porch with one free hand. Assigned walkbooks show up with the route and opening script. Each household opens into a short survey, and marking a door as Completed, Not Home, Refused or Moved takes one tap. Managers get their own view to watch team progress from the field.</p>
+
+                <div class="shots phones">
+                    <figure class="shot phone-shot">
+                        <img src="shots/mobile-walkbooks.webp" alt="Canvasser home screen with active walkbooks and door counts" width="780" height="1688" loading="lazy">
+                        <figcaption><span class="fn">Home</span> # assigned walkbooks</figcaption>
+                    </figure>
+                    <figure class="shot phone-shot">
+                        <img src="shots/mobile-walkbook.webp" alt="Walkbook screen with progress, opening script and household list" width="780" height="1688" loading="lazy">
+                        <figcaption><span class="fn">Walkbook</span> # script + households</figcaption>
+                    </figure>
+                    <figure class="shot phone-shot">
+                        <img src="shots/mobile-map.webp" alt="Zoomed walkbook map with household pins and a household card showing a satellite view and its members" width="780" height="1688" loading="lazy">
+                        <figcaption><span class="fn">Route map</span> # household card</figcaption>
+                    </figure>
+                    <figure class="shot phone-shot">
+                        <img src="shots/mobile-knock.webp" alt="Knock screen: pick the household member, then the knock result" width="780" height="1688" loading="lazy">
+                        <figcaption><span class="fn">Knock</span> # member + result</figcaption>
+                    </figure>
+                    <figure class="shot phone-shot">
+                        <img src="shots/mobile-survey.webp" alt="Household survey being filled out: opening script, a yes/no question answered Yes, a follow-up question and a typed note" width="780" height="1688" loading="lazy">
+                        <figcaption><span class="fn">Survey</span> # questions + notes</figcaption>
+                    </figure>
+                </div>
+                <p class="comment"># household names and addresses blurred</p>
+
+                <h2 id="build"><span class="kw">under the hood</span></h2>
+                <ul class="notes">
+                    <li><span class="fn">Row-level security</span> on every table. Canvassers only ever see their assigned walkbooks, and campaigns are isolated from each other. The schema has been through 30 migrations.</li>
+                    <li><span class="fn">Realtime presence</span> over Supabase channels drives the "Online Now" panel and the live canvasser map. No polling.</li>
+                    <li><span class="fn">Turf cutting</span> uses Mapbox GL Draw. A lasso polygon plus tag filters selects households, which become the walkbook.</li>
+                    <li><span class="fn">CSV import</span> parses with PapaParse, maps columns and geocodes addresses. Walkbooks group the selected contacts by address into households.</li>
+                    <li><span class="fn">Push notifications</span> go from the web portal through a Supabase edge function to Firebase Cloud Messaging.</li>
+                    <li><span class="fn">Invite links</span> use universal links and app links to open straight into the app and join the right campaign.</li>
+                    <li><span class="fn">One visual language</span> across both apps: the same zinc and red tokens in the Tailwind web UI and the Flutter theme.</li>
+                </ul>
+            </article>
+
+            <p class="prompt"><span class="ps">PS</span> C:\Users\jptho\projects&gt; <a href="https://github.com/jkpth" target="_blank" rel="noopener noreferrer">github</a> <a href="mailto:jptho@proton.me">email</a> <a href="/">back</a> <span class="caret" aria-hidden="true"></span></p>
+        </main>
+    </div>
+
+    <dialog class="viewer" id="viewer" aria-label="Screenshot viewer">
+        <figure>
+            <img id="viewerImg" alt="">
+            <figcaption id="viewerCap"></figcaption>
+        </figure>
+        <button class="v-btn v-prev" id="viewerPrev" aria-label="Previous screenshot">&lt;</button>
+        <button class="v-btn v-next" id="viewerNext" aria-label="Next screenshot">&gt;</button>
+        <button class="v-btn v-close" id="viewerClose" aria-label="Close">×</button>
+    </dialog>
+
+    <script>
+        // Click a screenshot to view it large; arrows step through, Esc or a click outside closes.
+        (function () {
+            var imgs = Array.prototype.slice.call(document.querySelectorAll('.shot img'));
+            var dlg = document.getElementById('viewer'), big = document.getElementById('viewerImg'), cap = document.getElementById('viewerCap');
+            var cur = 0;
+            function show(i) {
+                cur = (i + imgs.length) % imgs.length;
+                var img = imgs[cur];
+                big.src = img.currentSrc || img.src;
+                big.alt = img.alt;
+                big.classList.toggle('tall', img.naturalHeight > img.naturalWidth);
+                cap.innerHTML = img.closest('figure').querySelector('figcaption').innerHTML;
+            }
+            imgs.forEach(function (img, i) {
+                img.tabIndex = 0;
+                img.setAttribute('role', 'button');
+                img.addEventListener('click', function () { show(i); dlg.showModal(); });
+                img.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(i); dlg.showModal(); } });
+            });
+            document.getElementById('viewerPrev').addEventListener('click', function () { show(cur - 1); });
+            document.getElementById('viewerNext').addEventListener('click', function () { show(cur + 1); });
+            document.getElementById('viewerClose').addEventListener('click', function () { dlg.close(); });
+            dlg.addEventListener('click', function (e) { if (e.target === dlg || e.target.tagName === 'FIGURE') dlg.close(); });
+            dlg.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowLeft') show(cur - 1);
+                if (e.key === 'ArrowRight') show(cur + 1);
+            });
+        })();
+
+        // Until a screenshot file exists, show a labeled slot instead of a broken image.
+        document.querySelectorAll('.shot img').forEach(function (img) {
+            function missing() {
+                var slot = document.createElement('div');
+                slot.className = 'slot';
+                slot.textContent = img.getAttribute('src');
+                img.replaceWith(slot);
+            }
+            if (img.complete && img.naturalWidth === 0) missing();
+            else img.addEventListener('error', missing);
+        });
+    </script>
+</body>
+</html>
